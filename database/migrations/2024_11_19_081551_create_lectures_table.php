@@ -13,12 +13,9 @@ return new class extends Migration
     {
         Schema::create('lectures', function (Blueprint $table) {
             $table->id();
-<<<<<<< HEAD
             $table->string('title');
             $table->string('file_path')->nullable();
             $table->foreignId('subject_id')->constrained()->onDelete('cascade');
-=======
->>>>>>> 235aa8fc7f3bf4f4d5ca9daf882f7ed524b4b8a1
             $table->timestamps();
         });
     }
