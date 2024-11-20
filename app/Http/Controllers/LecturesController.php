@@ -10,10 +10,12 @@ use Illuminate\Http\Request;
 class LecturesController extends Controller
 {
     public function index()
-    {
-        $lectures = Lecture::all(); // Fetch all lectures from the database
-        return view('lectures.index', compact('lectures'));
-    }
+{
+    // Fetch all lectures with their related subjects
+    $lectures = Lecture::with('subject')->get(); 
+    return view('lectures.index', compact('lectures'));
+}
+
 
     public function create(Subject $subjects)
     {
@@ -87,7 +89,7 @@ class LecturesController extends Controller
             'file_path' => $filePath // Save the file path
         ]);
 
-        return redirect()->route('lectures.index');
+        return redirect()->route('lectures.index')->with('success','lecture updated successfully!');
     }
 
     public function destroy(Lecture $lecture)
@@ -100,6 +102,6 @@ class LecturesController extends Controller
         // Delete the lecture from the database
         $lecture->delete();
 
-        return redirect()->route('lectures.index');
+        return redirect()->route('lectures.index')->with('success','lecture deleted successfully!');
     }
 }
