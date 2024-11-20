@@ -14,10 +14,15 @@ return new class extends Migration
         Schema::create('lectures', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->unsignedBigInteger('subject_id'); // Foreign key must match data type
+            $table->string('lecturer');
             $table->string('file_path')->nullable();
-            $table->foreignId('subject_id')->constrained()->onDelete('cascade');
             $table->timestamps();
+        
+            // Foreign key constraint
+            $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
         });
+        
     }
 
     /**
