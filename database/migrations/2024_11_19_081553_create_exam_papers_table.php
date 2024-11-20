@@ -13,8 +13,14 @@ return new class extends Migration
     {
         Schema::create('exam_papers', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->unsignedBigInteger('subject_id'); // Foreign key to subjects
+            $table->string('file_path'); // Path to the uploaded exam paper file
             $table->timestamps();
+            // Foreign key constraint
+            $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
         });
+        
     }
 
     /**

@@ -10,11 +10,10 @@ use Illuminate\Http\Request;
 class LecturesController extends Controller
 {
     public function index()
-{
-    // Fetch all lectures with their related subjects
-    $lectures = Lecture::with('subject')->get(); 
-    return view('lectures.index', compact('lectures'));
-}
+    {
+        $lectures = Lecture::all();
+        return view('lectures.index', compact('lectures'));
+    }
 
 
     public function create(Subject $subjects)
@@ -25,25 +24,29 @@ class LecturesController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'subject_id' => 'required|exists:subjects,id', // Validate that subject_id exists in the subjects table
-            'lecturer' => 'required',
-            'pdf' => 'required|mimes:pdf|max:2048',
-        ]);
+        try {
+            $request->validate([
+                'title' => 'required',
+                'subject_id' => 'required|exists:subjects,id', // Validate that subject_id exists in the subjects table
+                'lecturer' => 'required',
+                'pdf_file' => 'required|mimes:pdf|max:2048',
+            ]);
 
-        // Store the uploaded PDF in the 'public/files' directory and get the path
-        $filePath = $request->file('pdf')->store('files', 'public');
+            // Store the uploaded PDF in the 'public/files' directory and get the path
+            $filePath = $request->file('pdf_file')->store('files', 'public');
 
-        // Store the lecture in the database with the subject_id
-        Lecture::create([
-            'title' => $request->title,
-            'subject_id' => $request->subject_id, // Use subject_id from the request
-            'lecturer' => $request->lecturer,
-            'file_path' => $filePath
-        ]);
+            // Store the lecture in the database with the subject_id
+            Lecture::create([
+                'title' => $request->title,
+                'subject_id' => $request->subject_id, // Use subject_id from the request
+                'lecturer' => $request->lecturer,
+                'file_path' => $filePath
+            ]);
 
-        return redirect()->route('lectures.index');
+            return redirect()->route('lectures.index')->with('success', 'Lecture created successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error creating lecture: ' . $e->getMessage())->withInput();
+        }
     }
 
 
@@ -52,10 +55,12 @@ class LecturesController extends Controller
         return view('lectures.index', compact('lecture'));
     }
 
-    public function edit(Lecture $lecture)
+    public function edit(Lecture $lecture, Subject $subjects)
     {
-        return view('lectures.index', compact('lecture'));
+        $subjects = Subject::all();
+        return view('lectures.edit', compact('lecture', 'subjects'));
     }
+    
 
     public function update(Request $request, Lecture $lecture)
     {
@@ -64,18 +69,18 @@ class LecturesController extends Controller
             'title' => 'required',
             'subject_id' => 'required|exists:subjects,id', // Validate subject_id
             'lecturer' => 'required',
-            'pdf' => 'nullable|mimes:pdf|max:2048', // Allow pdf to be nullable (optional update)
+            'pdf_file' => 'nullable|mimes:pdf|max:2048', // Allow pdf to be nullable (optional update)
         ]);
 
         // Check if a new file is uploaded
-        if ($request->hasFile('pdf')) {
+        if ($request->hasFile('pdf_file')) {
             // Delete the old file if it exists
             if ($lecture->file_path) {
                 Storage::disk('public')->delete($lecture->file_path);
             }
 
-            // Store the new uploaded PDF and get the file path
-            $filePath = $request->file('pdf')->store('files', 'public');
+            // Store the new uploaded PDF_file and get the file path
+            $filePath = $request->file('pdf_file')->store('files', 'public');
         } else {
             // Keep the old file path if no new file is uploaded
             $filePath = $lecture->file_path;
@@ -89,7 +94,7 @@ class LecturesController extends Controller
             'file_path' => $filePath // Save the file path
         ]);
 
-        return redirect()->route('lectures.index')->with('success','lecture updated successfully!');
+        return redirect()->route('lectures.index')->with('success', 'lecture updated successfully!');
     }
 
     public function destroy(Lecture $lecture)
@@ -102,6 +107,6 @@ class LecturesController extends Controller
         // Delete the lecture from the database
         $lecture->delete();
 
-        return redirect()->route('lectures.index')->with('success','lecture deleted successfully!');
+        return redirect()->route('lectures.index')->with('success', 'lecture deleted successfully!');
     }
 }
