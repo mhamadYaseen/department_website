@@ -74,13 +74,13 @@ class SubjectController extends Controller
         // Validate incoming request data
         $request->validate([
             'name' => 'required|string|max:255',
-            'number' => 'required|integer|between:1,7', // Assuming you have a number field
+            'semester_id' => 'required|integer|between:1,7', // Assuming you have a number field
         ]);
 
         // Update the subject
         $subject->update([
             'Subject_name' => $request->name,
-            'semester_id' => $request->number,
+            'semester_id' => $request->semester_id,
         ]);
 
         // Redirect with success message

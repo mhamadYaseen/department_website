@@ -14,3 +14,8 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::resource('lectures', LecturesController  ::class);
 Route::resource('subjects', SubjectController::class);
 Route::resource('exam-papers', ExamPaperController::class);
+
+// adding donload funcitonality 
+Route::get('/exam-papers/download/{id}', [ExamPaperController::class, 'download'])->name('exam-papers.download');
+Route::get('/lectures/download/{id}', [LecturesController::class, 'download'])->name('lectures.download');
+

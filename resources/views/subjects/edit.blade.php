@@ -27,10 +27,11 @@
                      <label for="semester_id">Semester</label>
                      <select class="form-control @error('semester_id') is-invalid @enderror" 
                         id="semester_id" name="semester_id" required>
+                        <option value="">Select Semester</option>
                         @foreach($semesters as $semester)
                            <option value="{{ $semester->id }}" 
-                              {{ old('Semester_id', $subject->Semester_id) == $semester->id ? 'selected' : '' }}>
-                              {{ $semester->semester_number }}
+                              {{ old('semester_id', $subject->semester_id) == $semester->id ? 'selected' : '' }}>
+                              semester: {{ $semester->semester_number }}
                            </option>
                         @endforeach
                      </select>

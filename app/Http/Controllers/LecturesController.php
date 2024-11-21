@@ -109,4 +109,7 @@ class LecturesController extends Controller
 
         return redirect()->route('lectures.index')->with('success', 'lecture deleted successfully!');
     }
+
+    
+
 }
