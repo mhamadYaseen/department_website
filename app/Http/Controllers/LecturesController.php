@@ -3,16 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lecture;
+use App\Models\Semester;
 use App\Models\Subject;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class LecturesController extends Controller
 {
+    
     public function index()
     {
-        $lectures = Lecture::all();
-        return view('lectures.index', compact('lectures'));
+        $lectures = Lecture::with(['subject', 'semester'])->get();
+        $subjects = Subject::with('semester')->get();
+        $semesters = Semester::all();
+        return view('lectures.index', compact('lectures', 'subjects', 'semesters'));
     }
 
 
@@ -110,6 +114,18 @@ class LecturesController extends Controller
         return redirect()->route('lectures.index')->with('success', 'lecture deleted successfully!');
     }
 
-    
+    public function download(Lecture $lecture)
+    {
+        // Get the file path from the lecture
+        $filePath = storage_path('app/public/' . $lecture->file_path);
+
+        // Check if the file exists
+        if (file_exists($filePath)) {
+            // Return the file as a download response
+            return response()->download($filePath);
+        }
+
+        return redirect()->route('lectures.index')->with('error', 'File not found!');
+    }
 
 }

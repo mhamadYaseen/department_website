@@ -12,4 +12,9 @@ class Lecture extends Model
     {
         return $this->belongsTo(Subject::class);
     }
+
+    public function semester()
+    {
+        return $this->belongsTo(Semester::class);
+    }
 }
