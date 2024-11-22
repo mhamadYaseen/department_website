@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container py-4">
+        @include('layouts.message')
         <h1 class="mb-4">Exam Papers by Subject</h1>
 
         @forelse ($subjects as $subject)

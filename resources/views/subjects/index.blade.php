@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+   @include('layouts.message')
    <h1 class="text-center mb-4">All Subjects and all Semester</h1>
 
    @foreach($semesters as $semester)

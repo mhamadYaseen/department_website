@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -32,6 +33,12 @@ class LoginController extends Controller
      *
      * @return void
      */
+
+    protected function authenticated(Request $request, $user)
+    {
+        // Add a success message to the session
+        session()->flash('success', 'You have successfully logged in! Welcome back.');
+    }
     public function __construct()
     {
         $this->middleware('guest')->except('logout');

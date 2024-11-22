@@ -6,6 +6,7 @@ use App\Http\Controllers\LecturesController;
 use App\Http\Controllers\SubjectController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\SearchController;
 
 
 
@@ -32,3 +33,5 @@ Route::group(['middleware' => ['role:Student']], function () {
 });
 
 Route::post('/admin/assign-role', [AdminController::class, 'assignRole'])->name('admin.assignRole');
+
+Route::get('/search', [SearchController::class, 'search'])->name('search');

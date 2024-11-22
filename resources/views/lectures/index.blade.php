@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+   @include('layouts.message')
    <h1 class="mb-4">All Semesters</h1>
 
    @foreach($semesters as $semester)
@@ -13,24 +14,12 @@
             @if($semester->subjects->count() > 0)
                @foreach($semester->subjects as $subject)
                   <div class="mb-3">
-                     <h4 class="text-primary">{{ $subject->Subject_name }}</h4>
-                     
-                     @if($subject->lectures->count() > 0)
-                        <ul class="list-group">
-                           @foreach($subject->lectures as $lecture)
-                              <li class="list-group-item d-flex justify-content-between align-items-center">
-                                 {{ $lecture->title }}
-                                 <a href="{{ asset('storage/' . $lecture->file_path) }}" 
-                                    class="btn btn-sm btn-primary" 
-                                    target="_blank">
-                                    View PDF
-                                 </a>
-                              </li>
-                           @endforeach
-                        </ul>
-                     @else
-                        <p class="text-muted">No lectures available for this subject.</p>
-                     @endif
+                     <h4 class="text-primary text-center">{{ $subject->Subject_name }}</h4>
+                     <ul class="text-center">
+                        <a href="{{ route('subjects.show', $subject->id) }}" class="btn btn-sm btn-info">View</a>
+                        <a href="{{ route('subjects.edit', $subject->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                     </ul>
+                     @include('shared.lectures-card')
                   </div>
                @endforeach
             @else
