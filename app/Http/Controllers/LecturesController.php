@@ -7,6 +7,7 @@ use App\Models\Semester;
 use App\Models\Subject;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LecturesController extends Controller
 {
@@ -40,13 +41,17 @@ class LecturesController extends Controller
             $filePath = $request->file('pdf_file')->store('files', 'public');
 
             // Store the lecture in the database with the subject_id
-            Lecture::create([
+            $lecture=Lecture::create([
                 'title' => $request->title,
                 'subject_id' => $request->subject_id, // Use subject_id from the request
                 'lecturer' => $request->lecturer,
                 'file_path' => $filePath
             ]);
-
+            activity()
+            ->causedBy(Auth::user())
+            ->performedOn($lecture)
+            ->log('created lecture'. $lecture->title);
+            
             return redirect()->route('lectures.index')->with('success', 'Lecture created successfully!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error creating lecture: ' . $e->getMessage())->withInput();

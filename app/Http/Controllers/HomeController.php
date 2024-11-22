@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lecture;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $latestLectures = Lecture::with(['subject', 'semester'])
+                                 ->latest()
+                                 ->take(10)
+                                 ->get();
+                                 
+        return view('home', compact('latestLectures'));
     }
 }
