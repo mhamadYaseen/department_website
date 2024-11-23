@@ -14,17 +14,17 @@ class SearchController extends Controller
      */
     public function search()
     {
-        $search = request()->query('search');
-        if ($search) {
+        $search = request()->input('query');
+        if ($search){
             $lectures = Lecture::where('title', 'LIKE', "%{$search}%")->get();
-            $subjects = Subject::where('name', 'LIKE', "%{$search}%")->get();
-            $examPapers = ExamPaper::where('title', 'LIKE', "%{$search}%")->get();
-        } else {
-            $lectures = Lecture::all();
-            $subjects = Subject::all();
-            $examPapers = ExamPaper::all();
+            $subjects = Subject::where('Subject_name', 'LIKE', "%{$search}%")->get();
+            return view('search', compact('lectures', 'subjects','search'));
         }
-        return view('search', compact('lectures', 'subjects', 'examPapers', 'search'));
+        else{
+            $lectures= null;
+            $subjects= null;
+            return view('search', compact('lectures', 'subjects', 'search'))->with('error', 'No results found');
+        }
     }
 
 }

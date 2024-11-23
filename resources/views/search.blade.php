@@ -6,8 +6,8 @@
          <div class="col-md-8">  <!-- This will make the content narrower -->
             <h1>Search Results for: {{ $search }}</h1>
 
-            <h2>Lectures</h2>
-            @if ($lectures->count() <= 0)
+            <h2>Lectures: </h2>
+            @if (!$lectures || $lectures->count() == 0)
                <p>no lectures found.</p>
             @else
                @foreach ($lectures as $lecture)
@@ -23,8 +23,8 @@
                @endforeach
             @endif
 
-            <h2>Subjects</h2>
-            @if ($subjects->count() <= 0)
+            <h2>Subjects:</h2>
+            @if ($subjects==null)
                <p>No subjects found.</p>
             @else
                @foreach ($subjects as $subject)

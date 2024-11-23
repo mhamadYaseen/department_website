@@ -1,12 +1,24 @@
+<!-- right-navbar.blade.php -->
 <ul class="navbar-nav ms-auto">
-   @if(!Route::is('search')) 
-   <div class="search">
-        <form action="{{ route('search') }}" method="GET" class="d-flex">
-            <input type="text" name="query" id="query" class="form-control me-2" placeholder="Search" required>
-            <button type="submit" class="btn btn-sm btn-primary me-3">Search</button>
-        </form>
-    </div>
-    @endif
+    @if(!Route::is('search')) 
+    <div class="search position-relative">
+         <form action="{{ route('search') }}" method="GET" class="d-flex">
+             <input type="text" 
+                    name="query" 
+                    id="searchInput" 
+                    class="form-control me-2" 
+                    placeholder="Search" 
+                    autocomplete="off"
+                    required>
+             <button type="submit" class="btn btn-sm btn-primary me-3">Search</button>
+         </form>
+         <div id="searchResults" class="position-absolute w-100 mt-1 d-none">
+             <div class="list-group shadow">
+                 <!-- Results will be inserted here -->
+             </div>
+         </div>
+     </div>
+     @endif
     <!-- Authentication Links -->
     @guest
         @if (Route::has('login'))
