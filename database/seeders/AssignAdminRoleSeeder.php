@@ -12,7 +12,7 @@ class AssignAdminRoleSeeder extends Seeder
     {
         try {
             // Create admin role if it doesn't exist
-            $adminRole = Role::firstOrCreate(['name' => 'admin']);
+            // $adminRole = Role::firstOrCreate(['name' => 'admin']);   
 
             // Find user with ID 1
             $admin = User::findOrFail(1);

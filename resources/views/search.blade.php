@@ -24,7 +24,7 @@
             @endif
 
             <h2>Subjects:</h2>
-            @if ($subjects==null)
+            @if (!$subjects || $subjects->count() == 0)
                <p>No subjects found.</p>
             @else
                @foreach ($subjects as $subject)
@@ -34,6 +34,23 @@
                         <a href="{{ route('subjects.show', $subject->id) }}" class="btn btn-sm btn-outline-primary">
                            <i class="fas fa-eye"></i> 
                            View Subject
+                        </a>
+                     </div>
+                  </div>
+               @endforeach
+            @endif
+            
+            <h2>exam papers: </h2>
+            @if (!$exam_papers || $exam_papers->count() == 0)
+               <p>no exam_papers found.</p>
+            @else
+               @foreach ($exam_papers as $exam_paper)
+                  <div class="card mb-4">
+                     <div class="card-header">{{ $exam_paper->title }}</div>
+                     <div class="card-body">
+                        <a href="{{ asset('storage/' . $exam_paper->file_path) }}" target="_blank"
+                           class="btn btn-sm btn-outline-primary">
+                           <i class="fas fa-file-pdf"></i> View PDF
                         </a>
                      </div>
                   </div>

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\WelcomeMail;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Mail;
 
 class LoginController extends Controller
 {
@@ -36,7 +38,7 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        // Add a success message to the session
+       
         session()->flash('success', 'You have successfully logged in! Welcome back.');
     }
     public function __construct()

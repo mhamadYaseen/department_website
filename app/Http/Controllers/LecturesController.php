@@ -11,6 +11,14 @@ use Illuminate\Support\Facades\Auth;
 
 class LecturesController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('permission:upload files')->only(['create', 'store']);
+        $this->middleware('permission:edit files')->only(['edit', 'update']);
+        $this->middleware('permission:delete files')->only('destroy');
+        $this->middleware('permission:view files')->only(['index', 'show']);
+    }
     
     public function index()
     {
@@ -41,17 +49,17 @@ class LecturesController extends Controller
             $filePath = $request->file('pdf_file')->store('files', 'public');
 
             // Store the lecture in the database with the subject_id
-            $lecture=Lecture::create([
+            $lecture = Lecture::create([
                 'title' => $request->title,
                 'subject_id' => $request->subject_id, // Use subject_id from the request
                 'lecturer' => $request->lecturer,
                 'file_path' => $filePath
             ]);
             activity()
-            ->causedBy(Auth::user())
-            ->performedOn($lecture)
-            ->log('created lecture'. $lecture->title);
-            
+                ->causedBy(Auth::user())
+                ->performedOn($lecture)
+                ->log('created lecture' . $lecture->title);
+
             return redirect()->route('lectures.index')->with('success', 'Lecture created successfully!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error creating lecture: ' . $e->getMessage())->withInput();
@@ -69,7 +77,7 @@ class LecturesController extends Controller
         $subjects = Subject::all();
         return view('lectures.edit', compact('lecture', 'subjects'));
     }
-    
+
 
     public function update(Request $request, Lecture $lecture)
     {
@@ -132,5 +140,4 @@ class LecturesController extends Controller
 
         return redirect()->route('lectures.index')->with('error', 'File not found!');
     }
-
 }

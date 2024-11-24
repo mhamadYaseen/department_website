@@ -19,7 +19,9 @@
                         <a href="{{ route('subjects.show', $subject->id) }}" class="btn btn-sm btn-info">View</a>
                         <a href="{{ route('subjects.edit', $subject->id) }}" class="btn btn-sm btn-warning">Edit</a>
                      </ul>
+
                      @include('shared.lectures-card')
+                  
                   </div>
                @endforeach
             @else

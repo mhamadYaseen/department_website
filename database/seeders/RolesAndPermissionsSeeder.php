@@ -13,7 +13,7 @@ class RolesAndPermissionsSeeder extends Seeder
         $admin = Role::create(['name' => 'Admin']);
         $student = Role::create(['name' => 'Student']);
 
-        // Create permissions
+        // // Create permissions
         Permission::create(['name' => 'upload files']);
         Permission::create(['name' => 'edit files']);
         Permission::create(['name' => 'delete files']);
