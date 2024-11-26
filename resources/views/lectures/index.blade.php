@@ -16,8 +16,19 @@
                   <div class="mb-3">
                      <h4 class="text-primary text-center">{{ $subject->Subject_name }}</h4>
                      <ul class="text-center">
+                        @can('view subjects')
                         <a href="{{ route('subjects.show', $subject->id) }}" class="btn btn-sm btn-info">View</a>
+                        @endcan
+                        @can('update subjects')
                         <a href="{{ route('subjects.edit', $subject->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                        @endcan
+                        @can('delete subjects')
+                        <form action="{{ route('subjects.destroy', $subject->id) }}" method="POST" class="d-inline">
+                           @csrf
+                           @method('DELETE')
+                           <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                        @endcan
                      </ul>
 
                      @include('shared.lectures-card')

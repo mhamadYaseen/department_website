@@ -12,6 +12,14 @@ class ExamPaperController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        $this->middleware('permission:upload files')->only(['create', 'store']);
+        $this->middleware('permission:edit files')->only(['edit', 'update']);
+        $this->middleware('permission:delete files')->only('destroy');
+        $this->middleware('permission:view files')->only(['index']);
+        $this->middleware('permission:download files')->only('download');
+    }
     public function index(Subject $subjects)
     {
         $subjects = Subject::all();

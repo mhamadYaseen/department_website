@@ -66,6 +66,7 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
 
+    // 2. Update RegisterController
     protected function create(array $data)
     {
         try {
@@ -77,17 +78,11 @@ class RegisterController extends Controller
 
             $user->assignRole('student');
 
-            
-        // Send welcome email
-        try {
-            Mail::to($user->email)->send(new WelcomeMail($user));
-        } catch (\Exception $e) {
-            Log::error('Failed to send welcome email: ' . $e->getMessage());
-            // Don't throw - allow registration to complete even if email fails
-        }
+            // Queue welcome email
+            Mail::to($user->email)->queue(new WelcomeMail($user));
+
             return $user;
         } catch (\Exception $e) {
-
             Log::error('Error creating user: ' . $e->getMessage());
             throw $e;
         }

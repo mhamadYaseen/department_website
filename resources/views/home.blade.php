@@ -9,7 +9,6 @@
                 @include('layouts.message')
                 <div class="card mb-4">
                     <!-- Latest Lectures Card -->
-                    
 
                    @include('shared.latest-lectures-card')
 

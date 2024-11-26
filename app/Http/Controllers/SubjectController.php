@@ -9,6 +9,16 @@ use Illuminate\Support\Facades\Storage;
 
 class SubjectController extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->middleware('permission:create subjects')->only('create', 'store');
+        $this->middleware('permission:edit subjects')->only('edit', 'update');
+        $this->middleware('permission:delete subjects')->only('destroy');
+        $this->middleware('permission:view subjects')->only(['index', 'show']);
+    }
+    
     /**
      * Display a listing of the resource.
      */

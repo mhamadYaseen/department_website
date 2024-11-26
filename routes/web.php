@@ -1,34 +1,56 @@
 <?php
 
+use App\Http\Controllers\{
+
+    HomeController,
+    LecturesController,
+    SubjectController,
+    ExamPaperController,
+    SearchController
+};
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\ExamPaperController;
-use App\Http\Controllers\LecturesController;
-use App\Http\Controllers\SubjectController;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\SearchController;
+use Illuminate\Support\Facades\{Route, Auth};
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request as HttpRequest;
+
 Auth::routes();
 
+Auth::routes();
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+// Admin Routes
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('lectures', LecturesController  ::class);
-Route::resource('subjects', SubjectController::class);
-Route::resource('exam-papers', ExamPaperController::class);
 
+Route::middleware('role:Admin')->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::resources([
+        'subjects' => SubjectController::class,
+        'lectures' => LecturesController::class,
+        'exam-papers' => ExamPaperController::class
+    ]);
+});
 
-// adding donload funcitonality 
-Route::get('/exam-papers/download/{id}', [ExamPaperController::class, 'download'])->name('exam-papers.download');
-Route::get('/lectures/download/{id}', [LecturesController::class, 'download'])->name('lectures.download');
+// Student & Public Routes
+Route::middleware('auth')->group(function () {
+    // Downloads
+    Route::get('/exam-papers/{id}/download', [ExamPaperController::class, 'download'])->name('exam-papers.download');
+    Route::get('/lectures/{id}/download', [LecturesController::class, 'download'])->name('lectures.download');
+
+    // View Only Routes
+    Route::resource('lectures', LecturesController::class)->only(['index', 'show']);
+    Route::resource('subjects', SubjectController::class)->only(['index', 'show']);
+    Route::resource('exam-papers', ExamPaperController::class)->only(['index', 'show']);
+});
 
 Route::group(['middleware' => ['role:Admin']], function () {
-   Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 });
 
 Route::group(['middleware' => ['role:Student']], function () {
-   Route::get('/student', function () {
-       return view('student.dashboard');
-   });
+    Route::get('/student', function () {
+        return view('student.dashboard');
+    });
 });
 
 Route::post('/admin/assign-role', [AdminController::class, 'assignRole'])->name('admin.assignRole');
@@ -51,4 +73,17 @@ Route::middleware('auth')->group(function () {
         $request->user()->sendEmailVerificationNotification();
         return back()->with('message', 'Verification link sent!');
     })->middleware(['auth', 'throttle:3,1'])->name('verification.send');
+});
+
+
+
+use Illuminate\Support\Facades\Mail;
+
+Route::get('/send-test-email', function () {
+    Mail::raw('This is a test email from Laravel using Sendinblue.', function ($message) {
+        $message->to(Auth::user()->email)
+            ->subject('Test Email');
+    });
+
+    return 'Test email sent successfully!';
 });

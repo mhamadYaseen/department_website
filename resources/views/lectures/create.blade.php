@@ -12,6 +12,7 @@
                 </ul>
             </div>
         @endif
+        @can('upload files')
         <form action="{{ route('lectures.store') }}" method="POST" enctype="multipart/form-data">
             <!-- Added enctype attribute -->
             @csrf
@@ -39,9 +40,10 @@
                 <label for="pdf_file">Upload PDF</label>
                 <input type="file" class="form-control" id="pdf_file" name="pdf_file" accept="application/pdf" required>
             </div>
-
+           
             <button type="submit" class="btn btn-primary">Create Lecture</button>
         </form>
+        @endcan
 
     </div>
 @endsection
