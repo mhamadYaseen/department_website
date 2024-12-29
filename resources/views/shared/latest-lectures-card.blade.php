@@ -36,6 +36,14 @@
                                             </a>
                                         @endcan
                                     @endif
+                                    @guest
+                                        <a href="{{ route('login') }}" class="btn btn-sm btn-outline-primary w-100">
+                                            <i class="fas fa-file-pdf"></i> View
+                                        </a>
+                                        <a href="{{ route('login') }}" class="btn btn-sm btn-outline-info w-100">
+                                            <i class="fas fa-download"></i> Download
+                                        </a>
+                                    @endguest
 
                                     @can('edit files', $lecture)
                                         <a href="{{ route('lectures.edit', $lecture->id) }}"

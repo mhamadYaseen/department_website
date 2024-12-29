@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.alert {
+   position: fixed;
+   top: 20px;
+   right: 20px;
+   z-index: 1050;
+   min-width: 300px;
+   opacity: 0;
+   display: none;
+   transition: opacity 0.5s ease-in-out;
+}
+
+.alert.show {
+   display: block;  /* Ensure visibility when show class is added */
+   opacity: 1;
+}
