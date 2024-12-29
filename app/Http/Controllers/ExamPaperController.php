@@ -17,7 +17,6 @@ class ExamPaperController extends Controller
         $this->middleware('permission:upload files')->only(['create', 'store']);
         $this->middleware('permission:edit files')->only(['edit', 'update']);
         $this->middleware('permission:delete files')->only('destroy');
-        $this->middleware('permission:view files')->only(['index']);
         $this->middleware('permission:download files')->only('download');
     }
     public function index(Subject $subjects)
