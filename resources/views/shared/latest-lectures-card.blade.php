@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card shadow-sm">
     <div class="card-header">Latest Ten Lectures</div>
     <div class="card-body">
         @if ($latestLectures->count() > 0)
@@ -9,7 +9,7 @@
                             <th>Title</th>
                             <th>Lecturer</th>
                             <th>Subject</th>
-                            <th>Uploaded At</th>
+                            <th class="d-none d-md-table-cell">Uploaded At</th>
                             <th style="min-width: 280px;" class="text-center">Actions</th>
                         </tr>
                     </thead>
@@ -19,16 +19,14 @@
                                 <td>{{ $lecture->title }}</td>
                                 <td>{{ $lecture->lecturer }}</td>
                                 <td>{{ $lecture->subject->Subject_name }}</td>
-                                <td>{{ $lecture->created_at->format('Y-m-d H:i') }}</td>
+                                <td class="d-none d-md-table-cell">{{ $lecture->created_at->format('Y-m-d H:i') }}</td>
                                 <td class="d-flex gap-1">
                                     @if ($lecture->file_path)
-                                        @can('view files', $lecture)
                                             <a href="{{ asset('storage/' . $lecture->file_path) }}" target="_blank"
                                                 class="btn btn-sm btn-outline-primary w-100">
                                                 <i class="fas fa-file-pdf"></i> View
                                             </a>
-                                        @endcan
-
+                                            
                                         @can('download files', $lecture)
                                             <a href="{{ asset('storage/' . $lecture->file_path) }}" download
                                                 class="btn btn-sm btn-outline-info w-100">
@@ -44,14 +42,14 @@
                                             <i class="fas fa-download"></i> Download
                                         </a>
                                     @endguest
-
+                
                                     @can('edit files', $lecture)
                                         <a href="{{ route('lectures.edit', $lecture->id) }}"
                                             class="btn btn-sm btn-outline-secondary w-100">
                                             <i class="fas fa-edit"></i> Edit
                                         </a>
                                     @endcan
-
+                
                                     @can('delete files', $lecture)
                                         <form action="{{ route('lectures.destroy', $lecture->id) }}" method="POST"
                                             class="d-inline w-100"
@@ -67,7 +65,7 @@
                             </tr>
                         @endforeach
                     </tbody>
-                </table>
+                </table>       
             </div>
         @else
             <p class="text-muted">No lectures have been uploaded yet.</p>

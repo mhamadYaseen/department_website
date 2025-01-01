@@ -12,20 +12,22 @@
 
         <!-- bootstrap 5 css-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
+        <script src="https://kit.fontawesome.com/105a4d9adc.js" crossorigin="anonymous"></script>
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
         <!-- Scripts -->
         <script src="{{ asset('js/flash-message.js') }}" defer></script>
-        @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/js/message.js', 'resources/css/message.css'])
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="{{ asset('js/nav.js') }}" defer></script>
+        @vite('resources/js/app.js')
+
     </head>
 
     <body>
         <div id="app">
-            <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+            <nav id="navbar" class="navbar navbar-expand-lg navbar-light shadow-sm shadow-red-600">
                 <div class="container">
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'department-website') }}
@@ -35,11 +37,11 @@
                         aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                   @include('shared.navbar')
+                    @include('shared.navbar')
                 </div>
-            </nav>
+            </nav>            
 
-            <main class="py-4">
+            <main class="   py-4">
                 @yield('content')
             </main>
         </div>

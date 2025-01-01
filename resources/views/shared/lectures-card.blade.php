@@ -6,12 +6,10 @@
                 <span class="text-primary">{{ $lecture->title }}</span>
                 <div class="btn-group">
                     @if ($lecture->file_path)
-                    @can('view files', $lecture)
                         <a href="{{ asset('storage/' . $lecture->file_path) }}" target="_blank"
                             class="btn btn-sm btn-outline-primary w-100">
                             <i class="fas fa-file-pdf"></i> View
                         </a>
-                    @endcan
 
                     @can('download files', $lecture)
                         <a href="{{ asset('storage/' . $lecture->file_path) }}" download
