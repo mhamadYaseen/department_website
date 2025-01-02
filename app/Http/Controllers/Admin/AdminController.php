@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ExamPaper;
 use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -17,9 +18,9 @@ class AdminController extends Controller
 
         $totalSubjects = Subject::count();
         $roles = Role::all();
-        
+        $tatalExams = ExamPaper::count();
 
-        return view('admin.dashboard', compact('totalUsers', 'totalSubjects', 'users', 'roles'));
+        return view('admin.dashboard', compact('totalUsers', 'totalSubjects', 'users', 'roles', 'tatalExams'));
     }
     public function assignRole(Request $request)
     {

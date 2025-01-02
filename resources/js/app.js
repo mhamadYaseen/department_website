@@ -5,7 +5,7 @@
  */
 
 import 'bootstrap';
-// import './../../public/js/nav.js';
+import './../../public/js/nav.js';
 import { createApp } from 'vue';
 
 /**

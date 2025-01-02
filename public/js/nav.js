@@ -1,16 +1,21 @@
-let lastScrollTop = 0;
-const navbar = document.getElementById("navbar");
+let prevScrollpos = window.pageYOffset;
+window.onscroll = function () {
+    let currentScrollPos = window.pageYOffset;
+    let navbar = document.querySelector(".navbar");
+    let toggler = document.querySelector(".navbar-toggler");
 
-if (navbar) {
-    window.addEventListener("scroll", () => {
-        let currentScroll = window.scrollY;
+    // Hide navbar on scroll down, show on scroll up
+    if (prevScrollpos > currentScrollPos) {
+        navbar.style.top = "0";  // Show when scrolling up
+    } else {
+        navbar.style.top = "-80px";  // Hide when scrolling down
+    }
 
-        if (currentScroll > lastScrollTop && currentScroll > 100) {
-            navbar.style.top = "-70px";  // Hides navbar on scroll down
-        } else {
-            navbar.style.top = "0";  // Shows navbar on scroll up
-        }
+    // Collapse navbar if expanded
+    if (toggler.getAttribute("aria-expanded") === "true" && prevScrollpos < currentScrollPos) {
+        toggler.click();  // Simulate a click to collapse
+    }
 
-        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-    });
-}
+    prevScrollpos = currentScrollPos;
+};
+

@@ -94,7 +94,7 @@
                         <a href="{{ route('subjects.create') }}" class="btn btn-primary">
                             <i class="fas fa-plus"></i> Create New Subject
                         </a>
-                        <a href="{{ route('subjects.index') }}" class="btn btn-outline-secondary mt-2">
+                        <a href="{{ route('subjects.index') }}" class="btn btn-outline-secondary ms-2">
                             <i class="fas fa-list"></i> View All Subjects
                         </a>
                     </div>
@@ -111,7 +111,7 @@
                         <a href="{{ route('lectures.create') }}" class="btn btn-danger">
                             <i class="fas fa-plus"></i> Upload New Lecture
                         </a>
-                        <a href="{{ route('lectures.index') }}" class="btn btn-outline-secondary mt-2">
+                        <a href="{{ route('lectures.index') }}" class="btn btn-outline-secondary ms-2">
                             <i class="fas fa-list"></i> View All Lectures
                         </a>
                     </div>
@@ -119,5 +119,23 @@
             </div>
         </div>
 
+        {{-- create Exampaper card --}}
+        <div class="row mt-4">
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-file-pdf fa-3x mb-3 text-danger"></i>
+                        <h5 class="card-title">Manage Exam Papers</h5>
+                        <p class="card-text">Upload and manage exam papers</p>
+                        <a href="{{ route('exam-papers.create') }}" class="btn btn-danger">
+                            <i class="fas fa-plus"></i> Upload New Exam Paper
+                        </a>
+                        <a href="{{ route('exam-papers.index') }}" class="btn btn-outline-secondary ms-2">
+                            <i class="fas fa-list"></i> View All Exam Papers
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

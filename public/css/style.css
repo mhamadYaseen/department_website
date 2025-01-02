@@ -1,5 +1,5 @@
 #navbar {
-   transition: top 0.4s ease-in-out;
+   transition: top 0.3s ease-in-out;
 }
 
 .nav-item {
@@ -64,24 +64,36 @@
    transform: scale(1.1);
 }
 
+.alert{
+   font-size: 1rem;
+}
+
 .img-text-css{
    top: 15%;
    padding-top: 20px;
    text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
    font-size: 3rem;
    text-shadow: 4px 4px 8px rgba(0,0,0,0.8), 0 0 30px rgba(255,255,255,0.5);
-   background: linear-gradient(45deg,yellow, #ff7a41, #ff2b2b);
+   background: linear-gradient(45deg,rgb(255, 174, 0), #ff7a41, #ff2b2b);
                  background-clip: text;
                  -webkit-background-clip: text;
                  -webkit-text-fill-color: transparent;
+               background-size: 200% auto;
+               animation: gradient 3s linear infinite;
                  animation: glow 1.5s ease-in-out infinite alternate;
 }
 @keyframes glow {
-   from {
-       text-shadow: 4px 4px 8px rgba(0,0,0,0.8), 0 0 30px rgba(255,255,255,0.5);
+   0% {
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.8),
+                0 0 20px rgba(255,255,255,0.3);
    }
-   to {
-       text-shadow: 6px 6px 16px rgba(0,0,0,0.9), 0 0 40px rgba(255,75,43,0.8);
+   50% {
+      text-shadow: 4px 4px 12px rgba(0,0,0,0.9),
+                0 0 30px rgba(255,75,43,0.6);
+   }
+   100% {
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.8),
+                0 0 20px rgba(255,255,255,0.3);
    }
 }
 @media screen and (max-width: 975px) {
@@ -94,4 +106,46 @@
    .img-text-css {
       font-size: 1rem;
    }
+}
+
+
+.table-hover tbody tr:hover {
+   background-color: #f1f1f1; /* Subtle hover effect for rows */
+}
+
+th {
+   text-transform: uppercase;
+   letter-spacing: 1px;
+}
+
+.table-primary {
+   background-color: #cce5ff !important;
+}
+
+.table-secondary {
+   background-color: #e2e3e5 !important;
+}
+
+.table-success {
+   background-color: #d4edda !important;
+}
+
+.table-warning {
+   background-color: #fff3cd !important;
+}
+
+.btn {
+   transition: all 0.3s ease-in-out;
+}
+
+.btn:hover {
+   transform: scale(1.05); /* Button scaling effect on hover */
+}
+
+thead th {
+   text-align: center;
+}
+
+.shadow {
+   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
 }

@@ -2,12 +2,11 @@
 
 @section('content')
     <div class="container py-4">
-        @include('layouts.message')
         <h1 class="mb-4">Exam Papers by Subject</h1>
 
         @forelse ($subjects as $subject)
             <div class="card mb-4">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header text-white">
                     <h4 class="mb-0">{{ $subject->Subject_name }}</h4>
                 </div>
                 <div class="card-body">
@@ -25,7 +24,7 @@
                                 <tbody>
                                     @foreach ($subject->examPapers as $paper)
                                         <tr>
-                                            <td>
+                                            <td class="text-truncate text-center" style="max-width: 200px;">
                                                 <a href="{{ asset('storage/' . $paper->file_path) }}" target="_blank"
                                                     class="text-decoration-none">
                                                     <i class="fas fa-file-pdf text-danger me-2"></i>
@@ -33,24 +32,30 @@
                                                 </a>
                                             </td>
 
-                                            <td>
+                                            <td class="text-center">
                                                 <a href="{{ route('exam-papers.download', $paper->id) }}"
-                                                    class="btn btn-sm btn-outline-success">
+                                                    class="btn btn-sm btn-outline-success ">
                                                     <i class="fas fa-download"></i> Download
                                                 </a>
                                             </td>
 
-                                            <td>
+                                            <td class="text-center">
+                                                
                                                 <div class="btn-group" role="group">
+                                                    <a href="{{ asset('storage/' . $paper->file_path) }}" target="_blank"
+                                                        class="btn btn-sm btn-outline-primary rounded">
+                                                        <i class="fas fa-file-pdf"></i> View
+                                                    </a>
+    
                                                     <a href="{{ route('exam-papers.edit', $paper->id) }}"
-                                                        class="btn btn-sm btn-outline-primary">
+                                                        class="btn btn-sm btn-outline-primary ms-1 rounded">
                                                         <i class="fas fa-edit"></i> Edit
                                                     </a>
                                                     <form action="{{ route('exam-papers.destroy', $paper->id) }}"
                                                         method="POST" class="d-inline">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-outline-danger"
+                                                        <button type="submit" class="btn btn-sm btn-outline-danger ms-1 rounded"
                                                             onclick="return confirm('Are you sure you want to delete this exam paper?')">
                                                             <i class="fas fa-trash"></i> Delete
                                                         </button>

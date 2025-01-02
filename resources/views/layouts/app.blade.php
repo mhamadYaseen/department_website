@@ -20,14 +20,14 @@
 
         <!-- Scripts -->
         <script src="{{ asset('js/flash-message.js') }}" defer></script>
-        <script src="{{ asset('js/nav.js') }}" defer></script>
+        {{-- <script src="{{ asset('js/nav.js') }}" defer></script> --}}
         @vite('resources/js/app.js')
 
     </head>
 
     <body>
         <div id="app">
-            <nav id="navbar" class="navbar navbar-expand-lg navbar-light shadow-sm shadow-red-600">
+            <nav id="navbar" class="navbar navbar-expand-lg navbar-light fixed-top bg-white shadow-sm shadow-red-600">
                 <div class="container">
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'department-website') }}
@@ -39,9 +39,11 @@
                     </button>
                     @include('shared.navbar')
                 </div>
-            </nav>            
+            </nav>
 
-            <main class="   py-4">
+            <main class="mt-5 pt-3">
+                <!-- Dashboard Card -->
+                @include('layouts.message')
                 @yield('content')
             </main>
         </div>
