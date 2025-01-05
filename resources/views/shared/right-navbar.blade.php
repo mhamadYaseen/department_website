@@ -14,11 +14,13 @@
             </li>
         @endif
     @else
-        @if (Auth::check() && Auth::user()->hasRole('Admin'))
+        @auth
+        @if (Auth::user()->hasRole('Admin'))
             <li class="nav-item text-center {{ request()->routeIs('admin') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('admin') }}">Admin Panel</a>
             </li>
         @endif
+        @endauth
         <li class="nav-item dropdown text-center">
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false" v-pre>

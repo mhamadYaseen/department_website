@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ExamPaper;
 use App\Models\Lecture;
+use App\Models\Semester;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -33,7 +34,8 @@ class HomeController extends Controller
                                      ->latest()
                                      ->take(10)
                                      ->get();
-        return view('home', compact('latestLectures', 'latestExamPapers'));
+        $semesters = Semester::all();
+        return view('home', compact('latestLectures', 'latestExamPapers','semesters'));
     
     }
 }

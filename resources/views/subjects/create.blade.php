@@ -20,6 +20,17 @@
                                     </span>
                                 @enderror
                             </div>
+                            <div class="mb-3">
+                                <label for="lecturer" class="form-label">Subject lecturer</label>
+                                <input type="text" class="form-control @error('lecturer') is-invalid @enderror"
+                                    id="lecturer" name="lecturer" value="{{ old('lecturer') }}" required>
+                                @error('lecturer')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            
 
                             <div class="mb-3">
                                 <label for="semester" class="form-label">Semester</label>

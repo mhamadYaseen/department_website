@@ -56,21 +56,7 @@
                         </span>
                      @enderror
                   </div>
-
-                  <div class="form-group mb-3">
-                     <label for="lecturer">Lecturer Name</label>
-                     <input type="text" 
-                           class="form-control @error('lecturer') is-invalid @enderror" 
-                           id="lecturer" 
-                           name="lecturer" 
-                           value="{{ old('lecturer', $lecture->lecturer) }}">
-                     @error('lecturer')
-                        <span class="invalid-feedback" role="alert">
-                           <strong>{{ $message }}</strong>
-                        </span>
-                     @enderror
-                  </div>
-
+                  
                   <div class="form-group mb-3">
                      <label for="pdf_file">PDF File (Optional)</label>
                      @if($lecture->file_path)

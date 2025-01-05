@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->unsignedBigInteger('subject_id'); // Foreign key must match data type
-            $table->string('lecturer');
+            $table->text('description')->nullable();
             $table->string('file_path')->nullable();
             $table->timestamps();
         

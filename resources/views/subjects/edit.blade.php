@@ -24,6 +24,17 @@
                   </div>
 
                   <div class="form-group mb-3">
+                     <label for="lecturer">Subject lecturer</label>
+                     <input type="text" class="form-control @error('lecturer') is-invalid @enderror" 
+                        id="lecturer" name="lecturer" value="{{ old('lecturer', $subject->Subject_lecturer) }}" required>
+                     @error('lecturer')
+                        <span class="invalid-feedback" role="alert">
+                           <strong>{{ $message }}</strong>
+                        </span>
+                     @enderror
+                  </div>
+
+                  <div class="form-group mb-3">
                      <label for="semester_id">Semester</label>
                      <select class="form-control @error('semester_id') is-invalid @enderror" 
                         id="semester_id" name="semester_id" required>

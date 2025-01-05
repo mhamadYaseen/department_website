@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Subject extends Model
 {
-    protected $fillable = ['Subject_name', 'semester_id'];
+    protected $fillable = ['Subject_name','Subject_lecturer', 'semester_id'];
 
     public function lectures()
     {

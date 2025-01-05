@@ -46,11 +46,13 @@ class SubjectController extends Controller
     {
         $validate = $request->validate([
             'name' => 'required',
+             'lecturer' => 'required',
             'semester' => 'required|integer|between:1,7',
         ]);
 
         Subject::create([
             'Subject_name' => $request->name,
+            'Subject_lecturer' => $request->lecturer,
             'semester_id' => $request->semester,
         ]);
 
@@ -84,13 +86,15 @@ class SubjectController extends Controller
         // Validate incoming request data
         $request->validate([
             'name' => 'required|string|max:255',
+            'lecturer' => 'required|string|max:255',
             'semester_id' => 'required|integer|between:1,7', // Assuming you have a number field
         ]);
 
         // Update the subject
         $subject->update([
             'Subject_name' => $request->name,
-            'semester_id' => $request->semester_id,
+            'Subject_lecturer' => $request->lecturer,
+            'semester_id' => $request->semester,
         ]);
 
         // Redirect with success message

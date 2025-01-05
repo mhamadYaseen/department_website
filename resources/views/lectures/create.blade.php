@@ -20,12 +20,16 @@
                 <label for="title">Lecture Title</label>
                 <input type="text" class="form-control" id="title" name="title" required>
             </div>
-
-            <div class="form-group">
-                <label for="lecturer">Lecturer</label>
-                <input type="text" class="form-control" id="lecturer" name="lecturer" required>
-            </div>
-
+            <div class="form-group mb-3">
+                <label for="description">description</label>
+                <input type="text" class="form-control @error('description') is-invalid @enderror" 
+                   id="description" name="description" value="{{ old('description') }}" >
+                @error('description')
+                   <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                   </span>
+                @enderror
+             </div>
             <div class="form-group">
                 <label for="subject">Subject</label>
                 <!-- Changed name="subject" to name="subject_id" -->

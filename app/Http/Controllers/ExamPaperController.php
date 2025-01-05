@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ExamPaper;
+use App\Models\Semester;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -23,7 +24,8 @@ class ExamPaperController extends Controller
     {
         $subjects = Subject::all();
         $examPapers = ExamPaper::with('subject');
-        return view('exam-papers.index', compact('examPapers', 'subjects'));
+        $semesters = Semester::all();
+        return view('exam-papers.index', compact('examPapers', 'subjects', 'semesters'));
     }
 
     /**
@@ -43,6 +45,7 @@ class ExamPaperController extends Controller
         $request->validate([
             'title' => 'required',
             'subject_id' => 'required|exists:subjects,id',
+            'description' => 'nullable|string',
             'pdf_file' => 'required|mimes:pdf|max:2048',
         ]);
 
@@ -51,6 +54,7 @@ class ExamPaperController extends Controller
         ExamPaper::create([
             'title' => $request->title,
             'subject_id' => $request->subject_id,
+            'description' => $request->description,
             'file_path' => $file_path,
         ]);
 
@@ -77,6 +81,7 @@ class ExamPaperController extends Controller
         $request->validate([
             'title' => 'required',
             'subject_id' => 'required|exists:subjects,id',
+            'description' => 'nullable|string',
             'pdf_file' => 'mimes:pdf|max:2048',
         ]);
 
@@ -89,6 +94,7 @@ class ExamPaperController extends Controller
         $examPaper->update([
             'title' => $request->title,
             'subject_id' => $request->subject_id,
+            'description' => $request->description,
             'file_path' => $file_path,
         ]);
 

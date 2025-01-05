@@ -41,7 +41,7 @@ class LecturesController extends Controller
             $request->validate([
                 'title' => 'required',
                 'subject_id' => 'required|exists:subjects,id', // Validate that subject_id exists in the subjects table
-                'lecturer' => 'required',
+                'description' => 'nullable|string|',
                 'pdf_file' => 'required|mimes:pdf|max:2048',
             ]);
 
@@ -52,7 +52,7 @@ class LecturesController extends Controller
             $lecture = Lecture::create([
                 'title' => $request->title,
                 'subject_id' => $request->subject_id, // Use subject_id from the request
-                'lecturer' => $request->lecturer,
+                'description' => $request->description,
                 'file_path' => $filePath
             ]);
             activity()
@@ -85,7 +85,6 @@ class LecturesController extends Controller
         $request->validate([
             'title' => 'required',
             'subject_id' => 'required|exists:subjects,id', // Validate subject_id
-            'lecturer' => 'required',
             'pdf_file' => 'nullable|mimes:pdf|max:2048', // Allow pdf to be nullable (optional update)
         ]);
 
@@ -107,7 +106,6 @@ class LecturesController extends Controller
         $lecture->update([
             'title' => $request->title,
             'subject_id' => $request->subject_id, // Use subject_id field
-            'lecturer' => $request->lecturer,
             'file_path' => $filePath // Save the file path
         ]);
 

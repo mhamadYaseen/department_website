@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->unsignedBigInteger('subject_id'); // Foreign key to subjects
+            $table->text('description')->nullable();
             $table->string('file_path'); // Path to the uploaded exam paper file
             $table->timestamps();
             // Foreign key constraint

@@ -8,7 +8,7 @@ class ExamPaper extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'subject_id', 'file_path'];
+    protected $fillable = ['title', 'subject_id','description', 'file_path'];
 
     // Relationship to Subject
     public function subject()

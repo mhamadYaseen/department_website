@@ -108,44 +108,156 @@
    }
 }
 
-
-.table-hover tbody tr:hover {
-   background-color: #f1f1f1; /* Subtle hover effect for rows */
+.table thead th {
+   background-color: #2c3e50;  /* Dark Slate */
+   color: #ecf0f1;  /* Light Grey */
+   text-transform: uppercase;
+   backdrop-filter: blur(8px);  /* Subtle glass effect */
 }
 
-th {
-   text-transform: uppercase;
-   letter-spacing: 1px;
+.table-hover tbody tr:hover {
+   background-color: rgba(52, 152, 219, 0.15);  /* Soft Blue hover */
+   transition: background-color 0.3s ease-in-out;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+   background-color: rgba(236, 240, 241, 0.6);  /* Soft grey tone */
 }
 
 .table-primary {
-   background-color: #cce5ff !important;
-}
-
-.table-secondary {
-   background-color: #e2e3e5 !important;
+   background-color: rgba(52, 152, 219, 0.2) !important;  /* Calming Blue */
 }
 
 .table-success {
-   background-color: #d4edda !important;
+   background-color: rgba(46, 204, 113, 0.2) !important;  /* Mint Green */
 }
 
 .table-warning {
-   background-color: #fff3cd !important;
+   background-color: rgba(241, 196, 15, 0.2) !important;  /* Warm Yellow */
 }
 
-.btn {
-   transition: all 0.3s ease-in-out;
+.btn-primary {
+   background-color: #3498db;  /* Calm Blue */
+   border: none;
+   color: white;
+   border-radius: 6px;
 }
 
-.btn:hover {
-   transform: scale(1.05); /* Button scaling effect on hover */
+.btn-primary:hover {
+   background-color: #2980b9;  /* Deep Blue */
+   box-shadow: 0 4px 10px rgba(52, 152, 219, 0.5);
 }
 
-thead th {
-   text-align: center;
+.btn-info {
+   background-color: #1abc9c;  /* Teal */
+   border: none;
+   color: white;
+   border-radius: 6px;
+}
+
+.btn-info:hover {
+   background-color: #16a085;  /* Darker Teal */
+   box-shadow: 0 4px 10px rgba(26, 188, 156, 0.5);
+}
+
+.btn-secondary {
+   background-color: #95a5a6;  /* Neutral Grey */
+   border: none;
+   color: white;
+   border-radius: 6px;
+}
+
+.btn-secondary:hover {
+   background-color: #7f8c8d;  /* Deeper Grey */
+}
+
+.btn-danger {
+   background-color: #e74c3c;  /* Coral Red */
+   border: none;
+   color: white;
+   border-radius: 6px;
+}
+
+.btn-danger:hover {
+   background-color: #c0392b;  /* Darker Red */
+   box-shadow: 0 4px 10px rgba(231, 76, 60, 0.5);
+}
+
+.shadow-black {
+   box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);  /* Subtle card shadow */
+}
+
+.shadow-sm {
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);  /* Soft minimal shadow */
+}
+
+.text-truncate {
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+}
+
+.table-responsive {
+   border-radius: 12px;
+   overflow: hidden;
+   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);  /* Floating effect */
+}
+
+.accordion-button {
+   background-color: #feebd5;  /* Light grey background */
+   color: #333;  /* Dark text */
+   border: none;
+   box-shadow: none;
+}
+
+.accordion-button:focus {
+   border: none;
+   box-shadow: 0 0 10px rgba(255, 138, 4, 0.412);  /* Soft blue glow when focused */
+}
+
+.accordion-button:not(.collapsed) {
+   background-color: #feebd5;  /* Custom blue when expanded */
+   border: 1.5px solid #ffa202;  /* Custom blue border */
+   box-shadow: 0 0 10px rgba(255, 138, 4, 0.412);
+}
+
+.accordion-button:hover {
+   background-color: #ffa202c3;  /* Slightly darker blue on hover */
+   color: white;
 }
 
 .shadow {
    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+}
+
+
+
+.modal-content {
+   border-radius: 12px;
+   overflow: hidden;
+}
+
+.modal-header {
+ background-color: #feebd5;
+   border-bottom: 0;
+}
+
+.modal-body {
+   font-size: 1.1rem;
+   line-height: 1.6;
+}
+
+.modal-footer {
+   border-top: 0;
+}
+
+.close-btn {
+   background-color: transparent;
+   border: 2px solid #ffa202;
+   color: #ffa202;
+   border-radius: 6px;
+}
+.close-btn:hover {
+   background-color: #feebd5;
+   color: white;
 }

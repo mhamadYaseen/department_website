@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
             $table->string('Subject_name');
+            $table->string('Subject_lecturer');
             $table->unsignedBigInteger('semester_id'); // Foreign key must match data type
             $table->timestamps();
         });
