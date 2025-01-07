@@ -28,11 +28,12 @@
                         </button>
                     </h2>
                     <div id="collapseSemester{{ $semester->id }}" class="collapse according-collapse"
-                        aria-labelledby="headingOne">
+                        aria-labelledby="headingOne"
+                        data-bs-parent="#accordionExample">
                         <div class="accordion-body">
                             @if ($semester->subjects->count() > 0)
                                 @foreach ($semester->subjects as $subject)
-                                    <div class="card shadow-sm mb-1">
+                                    <div class="card shadow-sm mb-3">
                                         <div class="card-header d-flex justify-content-around align-items-center" style="background-color: #feebd5;">
                                             <h5 class="mb-0">Subject:  {{ $subject->Subject_name }}</h5>
                                             <h5 class="mb-0">lecturer: {{ $subject->Subject_lecturer }}</h5>

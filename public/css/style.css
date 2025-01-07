@@ -335,3 +335,21 @@ body.modal-open {
    text-decoration: underline;
 }
 
+/* card */
+
+.card {
+   transition: transform 0.2s ease;
+}
+.card:hover {
+   transform: translateY(-5px);
+}
+.subject-icon {
+   transition: transform 0.3s ease;
+}
+.subject-icon:hover {
+   transform: scale(1.1);
+}
+.btn:hover {
+   transform: translateY(-2px);
+   box-shadow: 0 5px 15px rgba(0,0,0,0.1) !important;
+}
