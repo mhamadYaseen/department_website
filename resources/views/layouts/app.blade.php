@@ -25,9 +25,11 @@
 
     </head>
 
-    <body>
+    <body style="background-color: #ffffffbe;">
         <div id="app">
-            <nav id="navbar" class="navbar navbar-expand-lg navbar-light fixed-top bg-white shadow-sm shadow-red-600">
+            <nav id="navbar"
+                class="navbar navbar-expand-lg navbar-light fixed-to shadow-sm border-black border-bottom"
+                style="background-color: #f3f3f3d8;">
                 <div class="container">
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'department-website') }}
@@ -44,9 +46,16 @@
             <main class="mt-5 pt-3">
                 <!-- Dashboard Card -->
                 @include('layouts.message')
+                @if ($errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show text-center mt-3" role="alert">
+                        {{ $errors->first() }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
                 @yield('content')
             </main>
         </div>
     </body>
+    @include('shared.footer')
 
 </html>
