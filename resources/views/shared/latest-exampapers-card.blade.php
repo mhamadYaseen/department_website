@@ -40,12 +40,10 @@
                                                         class="btn btn-sm btn-primary d-flex align-items-center">
                                                         <i class="fas fa-file-pdf me-1"></i> View
                                                     </a>
-                                                    @can('download files', $examPaper)
                                                         <a href="{{ asset('storage/' . $examPaper->file_path) }}" download
                                                             class="btn btn-sm btn-info d-flex align-items-center">
                                                             <i class="fas fa-download me-1"></i> Download
                                                         </a>
-                                                    @endcan
                                                 @endif
                                            
                                             @can('edit files', $examPaper)

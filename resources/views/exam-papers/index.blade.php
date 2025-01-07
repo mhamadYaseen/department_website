@@ -33,8 +33,9 @@
                             @if ($semester->subjects->count() > 0)
                                 @foreach ($semester->subjects as $subject)
                                     <div class="card shadow-sm mb-1">
-                                        <div class="card-header " style="background-color: #feebd5;">
-                                            <h5 class="mb-0">{{ $subject->Subject_name }}</h5>
+                                        <div class="card-header d-flex justify-content-around align-items-center" style="background-color: #feebd5;">
+                                            <h5 class="mb-0">Subject:  {{ $subject->Subject_name }}</h5>
+                                            <h5 class="mb-0">lecturer: {{ $subject->Subject_lecturer }}</h5>
                                         </div>
                                         <div class="card-body ">
                                             @if ($subject->examPapers->count() > 0)

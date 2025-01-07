@@ -18,9 +18,9 @@ class AdminController extends Controller
 
         $totalSubjects = Subject::count();
         $roles = Role::all();
-        $tatalExams = ExamPaper::count();
+        $totalExams = ExamPaper::count();
 
-        return view('admin.dashboard', compact('totalUsers', 'totalSubjects', 'users', 'roles', 'tatalExams'));
+        return view('admin.dashboard', compact('totalUsers', 'totalSubjects', 'users', 'roles', 'totalExams'));
     }
     public function assignRole(Request $request)
     {

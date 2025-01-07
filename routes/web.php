@@ -37,16 +37,3 @@ Route::resource('exam-papers', ExamPaperController::class)->only(['index', 'show
 Route::get('/search', [SearchController::class, 'search'])->name('search');
 Route::get('/exam-papers/{id}/download', [ExamPaperController::class, 'download'])->name('exam-papers.download');
 Route::get('/lectures/{id}/download', [LecturesController::class, 'download'])->name('lectures.download');
-
-
-
-// use Illuminate\Support\Facades\Mail;
-
-// Route::get('/send-test-email', function () {
-//     Mail::raw('This is a test email from Laravel using Sendinblue.', function ($message) {
-//         $message->to(Auth::user()->email)
-//             ->subject('Test Email');
-//     });
-
-//     return 'Test email sent successfully!';
-// });

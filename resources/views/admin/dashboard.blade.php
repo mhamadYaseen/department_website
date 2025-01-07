@@ -22,6 +22,14 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-3 mx-2">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h5>Total Exam papers</h5>
+                        <p>{{ $totalExams }}</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- User Management -->

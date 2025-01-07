@@ -5,30 +5,18 @@
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span class="text-primary">{{ $lecture->title }}</span>
                 <div class="btn-group">
-                    @auth
+                
                         @if ($lecture->file_path)
                             <a href="{{ asset('storage/' . $lecture->file_path) }}" target="_blank"
                                 class="btn btn-sm btn-outline-primary w-100">
                                 <i class="fas fa-file-pdf"></i> View
                             </a>
 
-                            @can('download files', $lecture)
                                 <a href="{{ asset('storage/' . $lecture->file_path) }}" download
                                     class="btn btn-sm btn-outline-info w-100">
                                     <i class="fas fa-download"></i> Download
                                 </a>
-                            @endcan
                         @endif
-                    @endauth
-
-                    @guest
-                        <a href="{{ route('login') }}" class="btn btn-sm btn-outline-primary w-100">
-                            <i class="fas fa-file-pdf"></i> View
-                        </a>
-                        <a href="{{ route('login') }}" class="btn btn-sm btn-outline-info w-100">
-                            <i class="fas fa-download"></i> Download
-                        </a>
-                    @endguest
 
                     @can('edit files', $lecture)
                         <a href="{{ route('lectures.edit', $lecture->id) }}" class="btn btn-sm btn-outline-secondary w-100">

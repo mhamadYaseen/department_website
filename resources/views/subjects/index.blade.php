@@ -25,6 +25,7 @@
                     <h2 class="accordion-header" id="headingOne">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseSemester{{ $semester->id }}" aria-expanded="false"
+                            data-bs-parent="#accordionExample"
                             aria-controls="collapseSemester{{ $semester->id }}">
                             Semester {{ $semester->semester_number }}
                         </button>
@@ -39,16 +40,16 @@
                                         <a href="{{ route('subjects.create') }}" class="btn btn-success"
                                             style="background-color: #28a745; border-color: #28a745;">Add New Subject</a>
                                     </div>
-                                    <table class="table table-striped table-hover table-bordered align-middle">
-                                        <thead class="bg-gradient bg-dark text-white">
+                                    <table class="table table-hover bg-white align-middle">
+                                        <thead class="bg-gradient text-dark">
                                             <tr>
-                                                <th class="text-center" style="width: 30%; background-color: #007bff;">
+                                                <th class="text-center text-dark" style="width: 30%; background-color: #feebd5;">
                                                     Subject Name
                                                 </th>
-                                                <th class="text-center" style="width: 30%; background-color: #6c757d;">
+                                                <th class="text-center text-dark" style="width: 30%; background-color: #feebd5;">
                                                     Lecturer Name
                                                 </th>
-                                                <th class="text-center" style="width: 40%; background-color: #17a2b8;">
+                                                <th class="text-center text-dark" style="width: 40%; background-color: #feebd5;">
                                                     Access</th>
                                             </tr>
                                         </thead>
@@ -57,27 +58,26 @@
                                                 <tr style="cursor: pointer;"
                                                     onmouseover="this.style.backgroundColor='#d4edda'"
                                                     onmouseout="this.style.backgroundColor='';">
-                                                    <td class="text-center" style="background-color: #f8f9fa;">
+                                                    <td class="text-center bg-white" >
                                                         {{ $subject->Subject_name }}</td>
-                                                    <td class="text-center" style="background-color: #f1f3f5;">
+                                                    <td class="text-center bg-white" >
                                                         {{ $subject->Subject_lecturer }}</td>
-                                                    <td class="text-center d-flex justify-content-center"
-                                                        style="background-color: #e2e6ea;">
+                                                    <td class="text-center d-flex justify-content-center bg-white">
                                                         <a href="{{ route('subjects.show', $subject->id) }}"
-                                                            class="btn btn-primary me-2"
-                                                            style=" transition: all 0.3s ease; min-width: 70px;">View</a>
+                                                            class="btn btn-primary me-2 btn-sm"
+                                                            style="transition: all 0.3s ease; min-width: 60px;">View</a>
                                                         @can('edit subjects')
                                                             <a href="{{ route('subjects.edit', $subject->id) }}"
-                                                                class="btn btn-warning me-2"
-                                                                style=" transition: all 0.3s ease; min-width: 70px;">Edit</a>
+                                                                class="btn btn-warning me-2 btn-sm"
+                                                                style="transition: all 0.3s ease; min-width: 60px;">Edit</a>
                                                         @endcan
                                                         @can('delete subjects')
                                                             <form action="{{ route('subjects.destroy', $subject->id) }}"
                                                                 method="POST" class="d-inline">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <button type="submit" class="btn btn-danger"
-                                                                    style=" transition: all 0.3s ease; min-width: 70px;">Delete</button>
+                                                                <button type="submit" class="btn btn-danger btn-sm"
+                                                                    style="transition: all 0.3s ease; min-width: 60px;">Delete</button>
                                                             </form>
                                                         @endcan
                                                     </td>
