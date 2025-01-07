@@ -6,6 +6,7 @@
 
 import 'bootstrap';
 import './../../public/js/nav.js';
+import './../../public/js/modal.js';
 import { createApp } from 'vue';
 
 /**

@@ -134,12 +134,12 @@
                                                                     </li>
 
                                                                     {{-- Lecture Info Modal --}}
-                                                                    @include('shared.lecture-info-modal')
-
+                                                                    
                                                                     <div class="w-100 mx-auto my-3 opacity-5"
-                                                                        style="height: 3px;
+                                                                    style="height: 3px;
                                                                             background-image: linear-gradient(to right, rgb(249, 255, 67), rgb(255, 0, 0));">
                                                                     </div>
+                                                                    
                                                                 @endforeach
                                                             </ul>
                                                         @else
@@ -156,6 +156,7 @@
                             </div>
                         </div>
                     </div>
+                    @include('shared.lecture-info-modal')
                 @endforeach
             </div>
         </div>

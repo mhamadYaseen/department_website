@@ -34,7 +34,7 @@
                                         <td class="table-warning d-none d-md-table-cell text-center align-middle">
                                             {{ $examPaper->created_at->format('Y-m-d H:i') }}</td>
                                         <td class="d-flex flex-wrap justify-content-center gap-1 align-middle">
-                                            @auth
+                                           
                                                 @if ($examPaper->file_path)
                                                     <a href="{{ asset('storage/' . $examPaper->file_path) }}" target="_blank"
                                                         class="btn btn-sm btn-primary d-flex align-items-center">
@@ -47,15 +47,7 @@
                                                         </a>
                                                     @endcan
                                                 @endif
-                                            @endauth
-                                            @guest
-                                                <a href="{{ route('login') }}" class="btn btn-sm btn-primary d-flex align-items-center px-4">
-                                                    <i class="fas fa-file-pdf me-1"></i> View
-                                                </a>
-                                                <a href="{{ route('login') }}" class="btn btn-sm btn-info d-flex align-items-center">
-                                                    <i class="fas fa-download me-1"></i> Download
-                                                </a>
-                                            @endguest
+                                           
                                             @can('edit files', $examPaper)
                                                 <a href="{{ route('exam-papers.edit', $examPaper->id) }}"
                                                     class="btn btn-sm btn-secondary d-flex align-items-center">

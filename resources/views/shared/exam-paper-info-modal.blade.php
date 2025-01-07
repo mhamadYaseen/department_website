@@ -18,25 +18,3 @@
         </div>
     </div>
 </div>
-
-<!-- JavaScript to Update Modal Content Dynamically -->
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const examPaperInfoButtons = document.querySelectorAll('[data-bs-target="#examPaperInfoModal"]');
-
-        examPaperInfoButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const examPaperTitle = button.getAttribute('data-title');
-                const examPaperDescription = button.getAttribute('data-description') ||
-                    'No description available.';
-
-                const modalTitle = document.querySelector('#examPaperInfoModalLabel');
-                const modalBody = document.querySelector('#examPaperModalBody');
-
-                modalTitle.textContent = examPaperTitle;
-                modalBody.textContent = examPaperDescription;
-            });
-        });
-    });
-</script>
-
