@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container mt-5 py-2">
         @auth
             @if (Auth::user()->hasRole('Admin'))
                 <div class="row border-bottom border-primary p-3">
@@ -17,11 +17,11 @@
                 </div>
             @endif
         @endauth
-        <h1 class="text-center mb-4" style="font-weight: bold;">All lectures</h1>
-        <div class="container mt-5">
+        <h1 class="text-center" style="font-weight: bold;">All lectures</h1>
+        <div class="container">
             <div class="accordion" id="semesterAccordion">
                 @foreach ($semesters as $semester)
-                    <div class="accordion-item">
+                    <div class="accordion-item border-0">
                         <h2 class="accordion-header text-black mb-1" id="headingSemester{{ $semester->id }}">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseSemester{{ $semester->id }}" aria-expanded="false"

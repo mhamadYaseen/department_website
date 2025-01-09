@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container mt-5">
    <h1>Edit Exam Paper</h1>
    <form action="{{ route('exam-papers.update', $examPaper->id) }}" method="POST" enctype="multipart/form-data">
       @csrf

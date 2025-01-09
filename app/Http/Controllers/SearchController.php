@@ -29,7 +29,8 @@ class SearchController extends Controller
         else{
             $lectures= null;
             $subjects= null;
-            return view('search', compact('lectures', 'subjects', 'search'))->with('error', 'No results found');
+            $exam_papers= null;
+            return view('search', compact('lectures', 'subjects','exam_papers', 'search'))->with('error', 'No results found');
         }
     }
 

@@ -20,8 +20,9 @@ class DatabaseSeeder extends Seeder
             SemesterSeeder::class
         ]);
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Muhammad Yaseen',
+            'email' => 'mhamadyaseen269@gmail.com',
+            'password' => bcrypt('DEPARTMENTS_WEBSITE2025'),
         ]);
     }
 }

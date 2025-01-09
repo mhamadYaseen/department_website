@@ -1,15 +1,20 @@
-<footer class="shadow-sm mt-2 py-4 border-black border-top" style="background-color: #f3f3f3d8;">
+<footer class="shadow-sm mt-2 py-3 border-black border-top" style="background-color: #f3f3f3d8;">
    <div class="container text-center">
       <div class="row justify-content-center">
-         <div class="col-md-8">
-            <p class="mb-2">© {{ date('Y') }} Department of Software, University of Salahaddin, Erbil</p>
-            <p class="mb-2">Developed by: 
+         <div class="col-12 col-md-6">
+            <p class="mb-1 small">&copy; {{ date('Y') }} Department of Software, University of Salahaddin, Erbil</p>
+            <p class="mb-1 small">Developed by: 
                <a href="https://www.linkedin.com/in/mhamad-yaseen" class="text-decoration-none" target="_blank" rel="noopener noreferrer">Muhammad Yaseen</a>
             </p>
-            <p class="text-muted">We would love to hear your feedback and suggestions!</p>
-            <button class="btn btn-primary hover-shadow" data-bs-toggle="modal" data-bs-target="#feedbackModal">
+         </div>
+         <div class="col-12 col-md-6">
+            <p class="text-muted small">We would love to hear your feedback and suggestions!</p>
+            <button class="btn btn-primary btn-sm hover-shadow" data-bs-toggle="modal" data-bs-target="#feedbackModal">
                <i class="fas fa-comment-dots me-2"></i>Send Feedback
             </button>
+            <p class="text-muted small">If there are any updates on lectures or other information, you can contact us on Telegram: 
+               <a href="https://t.me/Mhamadyaseen" class="text-decoration-none" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-telegram fa-xl"></i></a>
+            </p>
          </div>
       </div>
    </div>
@@ -28,35 +33,31 @@
          <div class="modal-body">
             <form method="POST" action="{{ route('send.feedback') }}">
                @csrf
-               <div class="mb-3">
-                  <label for="name" class="form-label">Your Name</label>
-                  <input type="text" class="form-control @error('name') is-invalid @enderror" 
-                         id="name" name="name" value="{{ old('name') }}" required>
-                  @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
+               <div class="row">
+                  <div class="col-12 col-sm-6 mb-3">
+                     <label for="name" class="form-label small">Your Name</label>
+                     <input type="text" class="form-control form-control-sm @error('name') is-invalid @enderror" 
+                            id="name" name="name" value="{{ old('name') }}" required>
+                     @error('name')<div class="invalid-feedback small">{{ $message }}</div>@enderror
+                  </div>
+                  <div class="col-12 col-sm-6 mb-3">
+                     <label for="email" class="form-label small">Your Email</label>
+                     <input type="email" class="form-control form-control-sm @error('email') is-invalid @enderror" 
+                            id="email" name="email" value="{{ old('email') }}" required>
+                     @error('email')<div class="invalid-feedback small">{{ $message }}</div>@enderror
+                  </div>
                </div>
-
                <div class="mb-3">
-                  <label for="email" class="form-label">Your Email</label>
-                  <input type="email" class="form-control @error('email') is-invalid @enderror" 
-                         id="email" name="email" value="{{ old('email') }}" required>
-                  @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                  <label for="message" class="form-label small">Your Feedback</label>
+                  <textarea class="form-control form-control-sm @error('message') is-invalid @enderror" 
+                            id="message" name="message" rows="3" required>{{ old('message') }}</textarea>
+                  @error('message')<div class="invalid-feedback small">{{ $message }}</div>@enderror
                </div>
-
-               <div class="mb-3">
-                  <label for="message" class="form-label">Your Feedback</label>
-                  <textarea class="form-control @error('message') is-invalid @enderror" 
-                            id="message" name="message" rows="4" required>{{ old('message') }}</textarea>
-                  @error('message')<div class="invalid-feedback">{{ $message }}</div>@enderror
-               </div>
-
                <div class="d-grid">
-                  <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                  <button type="submit" class="btn btn-primary btn-sm">Submit Feedback</button>
                </div>
             </form>
          </div>
       </div>
    </div>
 </div>
-
-<!-- Flash Message -->
-

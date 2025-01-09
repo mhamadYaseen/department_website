@@ -1,4 +1,3 @@
-<!-- right-navbar.blade.php -->
 <ul class="navbar-nav ms-auto">
     <!-- Authentication Links -->
     @guest
@@ -27,7 +26,6 @@
                 {{ Auth::user()->name }}
             </a>
 
-
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item px-4 text-center" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
@@ -43,7 +41,7 @@
     @endguest
 
     @if (!Route::is('search'))
-        <div class="search position-relative text-center d-flex justify-content-center">
+        <div class="search position-relative text-center d-flex justify-content-center mt-2 mt-md-0">
             @include('shared.search-form')
             <div id="searchResults" class="position-absolute w-100 mt-1 d-none">
                 <div class="list-group shadow">

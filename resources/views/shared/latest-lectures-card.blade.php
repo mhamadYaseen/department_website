@@ -7,52 +7,55 @@
     style="background-image:linear-gradient(to right, rgb(255, 242, 2), rgb(255, 0, 0));">
     <i class="fas fa-book me-2"></i>The Last Ten Lectures
 </div>
+
 @foreach ($semesters as $semester)
     @if ($semester->subjects->count() > 0)
         <div class="card shadow-sm my-3">
-            <div class="card-header bg-secondary py-1"> semester {{ $semester->semester_number }}</div>
+            <div class="card-header bg-secondary py-1">Semester {{ $semester->semester_number }}</div>
             <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-hover table-bordered table-striped shadow-black shadow-sm">
+                <!-- Ensure horizontal scroll for the table -->
+                <div class="table-responsive-sm"> 
+                    <table class="table table-hover table-bordered table-striped lecture-table">
                         <thead class="table-dark">
-                            <tr class="jsutify-content-center">
-                                <th class="text-center align-middle">lecture Title</th>
-                                <th class="text-center align-middle">Subject</th>
-                                <th class="text-center align-middle">Lecturer</th>
-                                <th class="d-none d-md-table-cell text-center align-middle">Uploaded At</th>
-                                <th class="text-center align-middle">Actions</th>
+                            <tr class="text-center align-middle">
+                                <th>Lecture Title</th>
+                                <th>Subject</th>
+                                <th>Lecturer</th>
+                                <th class="d-none d-md-table-cell">Uploaded At</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($semester->subjects as $subject)
                                 @foreach ($subject->lectures as $lecture)
                                     <tr>
-                                        <td class="table-primary text-center align-middle text-truncate"
-                                            style="max-width: 70px;">{{ $lecture->title }}</td>
-                                        <td class="table-success text-center align-middle text-truncate"
-                                            style="max-width: 70px;">{{ $lecture->subject->Subject_name }}</td>
-                                        <td class="table-secondary text-center align-middle text-truncate"
-                                            style="max-width: 70px;">{{ $lecture->subject->Subject_lecturer }}</td>
+                                        <td class="table-primary text-center align-middle text-truncate">
+                                            {{ $lecture->title }}
+                                        </td>
+                                        <td class="table-success text-center align-middle text-truncate">
+                                            {{ $lecture->subject->Subject_name }}
+                                        </td>
+                                        <td class="table-secondary text-center align-middle text-truncate">
+                                            {{ $lecture->subject->Subject_lecturer }}
+                                        </td>
                                         <td class="table-warning d-none d-md-table-cell text-center align-middle">
                                             {{ $lecture->created_at->format('Y-m-d H:i') }}
                                         </td>
                                         <td class="d-flex flex-wrap justify-content-center gap-1 align-middle">
-
                                             @if ($lecture->file_path)
                                                 <a href="{{ asset('storage/' . $lecture->file_path) }}"
                                                     target="_blank"
-                                                    class="btn btn-sm btn-primary d-flex align-items-center">
+                                                    class="btn btn-primary action-btn">
                                                     <i class="fas fa-file-pdf me-1"></i> View
                                                 </a>
                                                 <a href="{{ asset('storage/' . $lecture->file_path) }}" download
-                                                    class="btn btn-sm btn-info d-flex align-items-center">
+                                                    class="btn btn-info action-btn">
                                                     <i class="fas fa-download me-1"></i> Download
                                                 </a>
                                             @endif
-
                                             @can('edit files', $lecture)
                                                 <a href="{{ route('exam-papers.edit', $lecture->id) }}"
-                                                    class="btn btn-sm btn-secondary d-flex align-items-center">
+                                                    class="btn btn-secondary action-btn">
                                                     <i class="fas fa-edit me-1"></i> Edit
                                                 </a>
                                             @endcan
@@ -63,7 +66,7 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
-                                                        class="btn btn-sm btn-danger d-flex align-items-center">
+                                                        class="btn btn-danger action-btn">
                                                         <i class="fas fa-trash me-1"></i> Delete
                                                     </button>
                                                 </form>

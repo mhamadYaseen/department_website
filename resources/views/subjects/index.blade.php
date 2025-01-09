@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container mt-5 py-2">
         @auth
             @if (Auth::user()->hasRole('Admin'))
                 <div class="row border-bottom border-primary p-3">
@@ -17,28 +17,31 @@
                 </div>
             @endif
         @endauth
-        <h1 class="text-center m-4 " style="text-color:black; font-weight:bold;">All Subjects from all Semester</h1>
+        <h1 class="text-center" style="text-color:black; font-weight:bold;">All Subjects from all Semester</h1>
 
-        @foreach ($semesters as $semester)
-            <div class="accordion" id="accordionExample">
-                <div class="accordion-item mb-1">
-                    <h2 class="accordion-header" id="headingOne">
+        <div class="accordion" id="semesterAccordion">
+            @foreach ($semesters as $semester)
+                <div class="accordion-item border-0">
+                    <h2 class="accordion-header text-black mb-1" id="headingSemester{{ $semester->id }}">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseSemester{{ $semester->id }}" aria-expanded="false"
-                            data-bs-parent="#accordionExample"
                             aria-controls="collapseSemester{{ $semester->id }}">
                             Semester {{ $semester->semester_number }}
                         </button>
                     </h2>
-                    <div id="collapseSemester{{ $semester->id }}" class="collapse according-collapse"
-                        aria-labelledby="headingOne">
+                    <div id="collapseSemester{{ $semester->id }}" class="accordion-collapse collapse shadow-lg"
+                        aria-labelledby="headingSemester{{ $semester->id }}" data-bs-parent="#semesterAccordion">
                         <div class="accordion-body">
                             @if ($semester->subjects->count() > 0)
                                 <div class="table-container shadow-lg p-4 mb-5 bg-white rounded" style="overflow-x: auto;">
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div class="d-flex justify-content-between align-items-center mb-3 border-0">
                                         <h2 style="text-color:black; font-weight:bold;">Subjects Overview</h2>
+                                        @auth
+                                        @if(Auth::user()->hasRole('Admin'))
                                         <a href="{{ route('subjects.create') }}" class="btn btn-success"
                                             style="background-color: #28a745; border-color: #28a745;">Add New Subject</a>
+                                        @endif
+                                        @endauth
                                     </div>
                                     <table class="table table-hover bg-white align-middle">
                                         <thead class="bg-gradient text-dark">
@@ -92,7 +95,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        @endforeach
+            @endforeach
+        </div>
     </div>
 @endsection

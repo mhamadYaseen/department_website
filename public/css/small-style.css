@@ -1,0 +1,121 @@
+/* Apply styles for smaller screens only */
+@media (max-width: 767px) {
+   .table-responsive-sm {
+       overflow-x: auto;
+       -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
+   }
+
+   .lecture-table th,
+   .lecture-table td {
+       white-space: nowrap; /* Prevent table cells from wrapping */
+       font-size: 12px; /* Smaller text for small screens */
+       padding: 6px;
+   }
+
+   .lecture-table .action-btn {
+       font-size: 12px;
+       padding: 4px 8px;
+   }
+
+   .lecture-table .text-truncate {
+       max-width: 120px;
+       overflow: hidden;
+       text-overflow: ellipsis;
+   }
+}
+/* Styles for screens smaller than 768px (small devices) */
+@media (max-width: 767px) {
+   .table-responsive-sm {
+       overflow-x: auto;  /* Enable horizontal scroll */
+       -webkit-overflow-scrolling: touch;  /* Smooth scrolling for iOS */
+   }
+
+   .exam-table th,
+   .exam-table td {
+       white-space: nowrap;  /* Prevent text from wrapping */
+       font-size: 12px;  /* Smaller text for table content */
+       padding: 4px;  /* Reduce padding */
+   }
+
+   .exam-table .action-btn {
+       font-size: 12px;  /* Smaller button font size */
+       padding: 4px 6px;  /* Compact buttons */
+   }
+
+   .exam-table .text-truncate {
+       max-width: 100px;  /* Limit max-width for truncation */
+       overflow: hidden;
+       text-overflow: ellipsis;
+   }
+
+   .exam-table th,
+   .exam-table .card-header {
+       font-size: 14px;  /* Smaller headers for mobile */
+   }
+}
+
+/* Maintain larger sizes for screens wider than 768px */
+@media (min-width: 768px) {
+   .exam-table th,
+   .exam-table td {
+       font-size: 16px;
+       padding: 12px;
+   }
+
+   .exam-table .action-btn {
+       font-size: 14px;
+       padding: 8px 12px;
+   }
+
+   .exam-table .card-header {
+       font-size: 16px;
+   }
+}
+
+/* General Navbar Adjustments for Small Devices */
+@media (max-width: 767px) {
+   .navbar-nav .nav-item {
+       margin-bottom: 5px;  /* Space between items */
+   }
+   
+   .navbar-nav .nav-link {
+       font-size: 14px;  /* Smaller font size for nav links */
+       padding: 8px 10px;
+   }
+
+   .dropdown-menu {
+       font-size: 14px;  /* Smaller font for dropdown */
+   }
+
+   .dropdown-item {
+       padding: 8px 12px;
+   }
+
+   #navbarDropdown {
+       font-size: 14px;  /* Reduce dropdown toggler font size */
+   }
+
+   .search {
+       max-width: 90%;  /* Limit search bar width */
+       font-size: 14px;
+   }
+}
+
+/* Adjustments for Very Small Screens (Phones) */
+@media (max-width: 575px) {
+   .navbar-nav .nav-item {
+       width: 100%;  /* Full width for better clickability */
+   }
+
+   .navbar-nav .nav-link {
+       font-size: 13px;  /* Further reduce font size */
+   }
+
+   .dropdown-item {
+       font-size: 13px;
+   }
+
+   .search {
+       max-width: 100%;
+   }
+}

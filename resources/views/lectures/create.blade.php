@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container mt-5">
         <h2>Create New Lecture</h2>
         @if ($errors->any())
             <div class="alert alert-danger">

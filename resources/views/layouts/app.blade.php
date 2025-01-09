@@ -17,6 +17,7 @@
         <link rel="dns-prefetch" href="//fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/small-style.css') }}" rel="stylesheet">
 
         <!-- Scripts -->
         <script src="{{ asset('js/flash-message.js') }}" defer></script>
@@ -28,7 +29,7 @@
     <body style="background-color: #ffffffbe;">
         <div id="app">
             <nav id="navbar"
-                class="navbar navbar-expand-lg navbar-light fixed-to shadow-sm border-black border-bottom"
+                class="navbar navbar-expand-lg navbar-light py-1 fixed-top shadow-sm border-black border-bottom"
                 style="background-color: #f3f3f3d8;">
                 <div class="container">
                     <a class="navbar-brand" href="{{ url('/') }}">
@@ -43,15 +44,9 @@
                 </div>
             </nav>
 
-            <main class="mt-5 pt-3">
+            <main class="mt-4">
                 <!-- Dashboard Card -->
                 @include('layouts.message')
-                @if ($errors->any())
-                    <div class="alert alert-danger alert-dismissible fade show text-center mt-3" role="alert">
-                        {{ $errors->first() }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif
                 @yield('content')
             </main>
         </div>
