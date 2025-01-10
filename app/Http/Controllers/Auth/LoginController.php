@@ -37,4 +37,16 @@ class LoginController extends Controller
 
         return redirect('/');  
     }
+
+    public function destroy(Request $request)
+    {
+        $user = $request->user();
+        $this->logout($request);
+        $user->delete();
+
+        // Flash account deletion success message
+        session()->flash('success', 'Your account has been deleted successfully.');
+
+        return redirect('/');
+    }
 }

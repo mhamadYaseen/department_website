@@ -10,11 +10,15 @@ use App\Http\Controllers\{
     SearchController
 };
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\{Route, Auth};
-
+use App\Http\Controllers\AccountController;
 Auth::routes();
 
-Auth::routes();
+Route::delete('/account/delete', [AccountController::class, 'destroy'])->name('account.delete')->middleware('auth');
+Route::get('/account/edit', [AccountController::class, 'edit'])->name('account.edit')->middleware('auth');
+Route::put('/account/update', [AccountController::class, 'update'])->name('account.update')->middleware('auth');
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
