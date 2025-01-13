@@ -25,7 +25,7 @@
             <div class="col-md-3 mx-2">
                 <div class="card">
                     <div class="card-body text-center">
-                        <h5>Total lectures</h5>
+                        <h5>Total Lectures</h5>
                         <p>{{ $totalLectures }}</p>
                     </div>
                 </div>
@@ -41,9 +41,8 @@
         </div>
 
         <!-- User Management -->
-        <h2 class="text-center mt-4 ">Manage Users</h2>
-        
-        <div class="d-flex justify-content-center mb-3"> 
+        <h2 class="text-center mt-4">Manage Users</h2>
+       <div class="d-flex justify-content-center mb-3"> 
             <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#userTable" aria-expanded="false" aria-controls="userTable">
                 Show All Users
             </button>
@@ -70,7 +69,6 @@
                 </table>
             </div>
         </div>
-
         <div class="row justify-content-center mt-4">
             <div class="col-md-6">
                 <div class="card">

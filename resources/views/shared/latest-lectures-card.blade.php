@@ -16,7 +16,7 @@
                     <div class="card-header bg-secondary py-1">Semester {{ $semester->semester_number }}</div>
                     <div class="card-body">
                         <!-- Ensure horizontal scroll for the table -->
-                        <div class="table-responsive-sm">
+                        <div class="table-responsive-sm"> 
                             <table class="table table-hover table-bordered table-striped lecture-table">
                                 <thead class="table-dark">
                                     <tr class="text-center align-middle">
@@ -43,7 +43,8 @@
                                         </td>
                                         <td class="d-flex flex-wrap justify-content-center gap-1 align-middle">
                                             @if ($lecture->file_path)
-                                                <a href="{{ asset('storage/' . $lecture->file_path) }}" target="_blank"
+                                                <a href="{{ asset('storage/' . $lecture->file_path) }}"
+                                                    target="_blank"
                                                     class="btn btn-primary action-btn">
                                                     <i class="fas fa-file-pdf me-1"></i> View
                                                 </a>
@@ -64,7 +65,8 @@
                                                     onsubmit="return confirm('Are you sure you want to delete this lecture?');">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger action-btn">
+                                                    <button type="submit"
+                                                        class="btn btn-danger action-btn">
                                                         <i class="fas fa-trash me-1"></i> Delete
                                                     </button>
                                                 </form>

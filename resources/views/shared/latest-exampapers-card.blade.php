@@ -29,56 +29,56 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="table-primary text-center align-middle text-truncate">
-                                            {{ $examPaper->title }}
-                                        </td>
-                                        <td class="table-success text-center align-middle text-truncate">
-                                            {{ $examPaper->subject->Subject_name }}
-                                        </td>
-                                        <td class="table-secondary text-center align-middle text-truncate">
-                                            {{ $examPaper->subject->Subject_lecturer }}
-                                        </td>
-                                        <td class="table-warning d-none d-md-table-cell text-center align-middle">
-                                            {{ $examPaper->created_at->format('Y-m-d H:i') }}
-                                        </td>
-                                        <td class="d-flex flex-wrap justify-content-center gap-1 align-middle">
-                                            @if ($examPaper->file_path)
-                                                <a href="{{ asset('storage/' . $examPaper->file_path) }}"
-                                                    target="_blank"
+                                        <tr>
+                                            <td class="table-primary text-center align-middle text-truncate">
+                                                {{ $examPaper->title }}
+                                            </td>
+                                            <td class="table-success text-center align-middle text-truncate">
+                                                {{ $examPaper->subject->Subject_name }}
+                                            </td>
+                                            <td class="table-secondary text-center align-middle text-truncate">
+                                                {{ $examPaper->subject->Subject_lecturer }}
+                                            </td>
+                                            <td class="table-warning d-none d-md-table-cell text-center align-middle">
+                                                {{ $examPaper->created_at->format('Y-m-d H:i') }}
+                                            </td>
+                                            <td class="d-flex flex-wrap justify-content-center gap-1 align-middle">
+                                                @if ($examPaper->file_path)
+                                                    <a href="{{ asset('storage/' . $examPaper->file_path) }}" target="_blank"
                                                     class="btn btn-primary btn-sm d-flex align-items-center action-btn">
-                                                    <i class="fas fa-file-pdf me-1"></i> View
-                                                </a>
-                                                <a href="{{ asset('storage/' . $examPaper->file_path) }}" download
+                                                        <i class="fas fa-file-pdf me-1"></i> View
+                                                    </a>
+                                                    <a href="{{ asset('storage/' . $examPaper->file_path) }}" download
                                                     class="btn btn-info btn-sm d-flex align-items-center action-btn">
-                                                    <i class="fas fa-download me-1"></i> Download
-                                                </a>
-                                            @endif
-                                            @can('edit files', $examPaper)
-                                                <a href="{{ route('exam-papers.edit', $examPaper->id) }}"
+                                                        <i class="fas fa-download me-1"></i> Download
+                                                    </a>
+                                                @endif
+                                                @can('edit files', $examPaper)
+                                                    <a href="{{ route('exam-papers.edit', $examPaper->id) }}"
                                                     class="btn btn-secondary btn-sm d-flex align-items-center action-btn">
-                                                    <i class="fas fa-edit me-1"></i> Edit
-                                                </a>
-                                            @endcan
-                                            @can('delete files', $examPaper)
-                                                <form action="{{ route('exam-papers.destroy', $examPaper->id) }}"
-                                                    method="POST" class="d-inline"
-                                                    onsubmit="return confirm('Are you sure you want to delete this exam paper?');">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit"
-                                                        class="btn btn-danger btn-sm d-flex align-items-center action-btn">
-                                                        <i class="fas fa-trash me-1"></i> Delete
-                                                    </button>
-                                                </form>
-                                            @endcan
-                                        </td>
-                                    </tr>
+                                                        <i class="fas fa-edit me-1"></i> Edit
+                                                    </a>
+                                                @endcan
+                                                @can('delete files', $examPaper)
+                                                    <form action="{{ route('exam-papers.destroy', $examPaper->id) }}" method="POST"
+                                                        class="d-inline"
+                                                        onsubmit="return confirm('Are you sure you want to delete this exam paper?');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                                class="btn btn-danger btn-sm d-flex align-items-center action-btn">
+                                                            <i class="fas fa-trash me-1"></i> Delete
+                                                        </button>
+                                                    </form>
+                                                @endcan
+                                            </td>
+                                        </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-            @endforeach 
+            @endforeach
+        @endforeach
     @endif
 @endforeach

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mt-5">
+<div class="container mt-5 py-5">
    <div class="row justify-content-center">
       <div class="col-md-8">
          <div class="card">
@@ -38,11 +38,11 @@
                      <label for="semester_id">Semester</label>
                      <select class="form-control @error('semester_id') is-invalid @enderror" 
                         id="semester_id" name="semester_id" required>
-                        <option value="">Select a semester</option>
+                        <option value="">Select Semester</option>
                         @foreach($semesters as $semester)
                            <option value="{{ $semester->id }}" 
-                              {{ (old('semester_id') ?? $subject->semester_id) == $semester->id ? 'selected' : '' }}>
-                              Semester {{ $semester->semester_number }}
+                              {{ old('semester_id', $subject->semester_id) == $semester->id ? 'selected' : '' }}>
+                              semester: {{ $semester->semester_number }}
                            </option>
                         @endforeach
                      </select>

@@ -17,7 +17,7 @@
                 </div>
             @endif
         @endauth
-        <h1 class=" text-center" style="font-weight: bold;">Exam Papers by Subject</h1>
+        <h1 class=" text-center" style="font-weight: bold;">All Exam Papers</h1>
         <div class="accordion " id="semesterAccordion">
             @foreach ($semesters as $semester)
                 <div class="accordion-item border-0">
@@ -31,27 +31,27 @@
                     <div id="collapseSemester{{ $semester->id }}" class="accordion-collapse collapse shadow-lg"
                         aria-labelledby="headingSemester{{ $semester->id }}" data-bs-parent="#semesterAccordion">
                         <div class="accordion-body">
-                            @if ($semester->subjects->count() > 0)
-                                    <div class="row">
-                                    <div class="accordion" id="subjectAccordion">
-                                        @foreach ($semester->subjects as $subject)
-                                            <div class="accordion-item border-0 mb-3">
-                                                <h2 class="accordion-header" id="heading{{ $subject->id }}">
-                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
-                                                        data-bs-target="#collapse{{ $subject->id }}" aria-expanded="false"
-                                                        aria-controls="collapse{{ $subject->id }}">
-                                                        {{ $subject->Subject_name }} - {{ $subject->Subject_lecturer }}
-                                                    </button>
-                                                </h2>
-                                                <div id="collapse{{ $subject->id }}" class="accordion-collapse collapse"
-                                                    aria-labelledby="heading{{ $subject->id }}" data-bs-parent="#subjectAccordion">
-                                                    <div class="accordion-body">
-                                                        @include('shared.exam-papers-card')
+                           @if ($semester->subjects->count() > 0)
+                                <div class="row">
+                                    <div class="accordion" id="subjectAccordion{{ $semester->id }}">
+                                            @foreach ($semester->subjects as $subject)
+                                                <div class="accordion-item border-0 mb-3">
+                                                    <h2 class="accordion-header" id="heading{{ $subject->id }}">
+                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                                            data-bs-target="#collapse{{ $subject->id }}" aria-expanded="false"
+                                                            aria-controls="collapse{{ $subject->id }}">
+                                                            {{ $subject->Subject_name }} - {{ $subject->Subject_lecturer }}
+                                                        </button>
+                                                    </h2>
+                                                    <div id="collapse{{ $subject->id }}" class="accordion-collapse collapse"
+                                                        aria-labelledby="heading{{ $subject->id }}" data-bs-parent="#subjectAccordion{{ $semester->id }}">
+                                                        <div class="accordion-body">
+                                                            @include('shared.exam-papers-card')
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
+                                            @endforeach
+                                        </div>
                                     </div>
                                 @else
                                 <div class=" text-muted p-3">
