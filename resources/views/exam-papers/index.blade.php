@@ -32,19 +32,28 @@
                         aria-labelledby="headingSemester{{ $semester->id }}" data-bs-parent="#semesterAccordion">
                         <div class="accordion-body">
                             @if ($semester->subjects->count() > 0)
-                                @foreach ($semester->subjects as $subject)
-                                    <div class="card shadow-sm mb-3">
-                                        <div class="card-header d-flex justify-content-around align-items-center"
-                                            style="background-color: #feebd5;">
-                                            <h5 class="mb-0">Subject: {{ $subject->Subject_name }}</h5>
-                                            <h5 class="mb-0">lecturer: {{ $subject->Subject_lecturer }}</h5>
-                                        </div>
-                                        <div class="card-body ">
-                                           @include('shared.exam-papers-card')
-                                        </div>
+                                    <div class="row">
+                                    <div class="accordion" id="subjectAccordion">
+                                        @foreach ($semester->subjects as $subject)
+                                            <div class="accordion-item border-0 mb-3">
+                                                <h2 class="accordion-header" id="heading{{ $subject->id }}">
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                                        data-bs-target="#collapse{{ $subject->id }}" aria-expanded="false"
+                                                        aria-controls="collapse{{ $subject->id }}">
+                                                        {{ $subject->Subject_name }} - {{ $subject->Subject_lecturer }}
+                                                    </button>
+                                                </h2>
+                                                <div id="collapse{{ $subject->id }}" class="accordion-collapse collapse"
+                                                    aria-labelledby="heading{{ $subject->id }}" data-bs-parent="#subjectAccordion">
+                                                    <div class="accordion-body">
+                                                        @include('shared.exam-papers-card')
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
                                     </div>
-                                @endforeach
-                            @else
+                                    </div>
+                                @else
                                 <div class=" text-muted p-3">
                                     <i class="fas fa-info-circle"></i> No subjects with exam papers found.
                                 </div>

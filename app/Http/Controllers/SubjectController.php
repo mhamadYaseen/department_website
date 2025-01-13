@@ -94,7 +94,7 @@ class SubjectController extends Controller
         $subject->update([
             'Subject_name' => $request->name,
             'Subject_lecturer' => $request->lecturer,
-            'semester_id' => $request->semester,
+            'semester_id' => $request->semester_id,
         ]);
 
         // Redirect with success message

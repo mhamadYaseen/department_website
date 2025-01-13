@@ -25,6 +25,14 @@
             <div class="col-md-3 mx-2">
                 <div class="card">
                     <div class="card-body text-center">
+                        <h5>Total lectures</h5>
+                        <p>{{ $totalLectures }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mx-2">
+                <div class="card">
+                    <div class="card-body text-center">
                         <h5>Total Exam papers</h5>
                         <p>{{ $totalExams }}</p>
                     </div>
@@ -33,26 +41,34 @@
         </div>
 
         <!-- User Management -->
-        <h2 class="text-center mt-4">Manage Users</h2>
-        <div class="table-responsive">
-            <table class="table table-bordered mx-auto" style="max-width: 800px;">
-                <thead>
-                    <tr>
-                        <th class="px-4">Name</th>
-                        <th class="px-4">Email</th>
-                        <th class="px-4">Role</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($users as $user)
+        <h2 class="text-center mt-4 ">Manage Users</h2>
+        
+        <div class="d-flex justify-content-center mb-3"> 
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#userTable" aria-expanded="false" aria-controls="userTable">
+                Show All Users
+            </button>
+        </div>
+        <div class="collapse" id="userTable">
+            <div class="table-responsive">
+                <table class="table table-bordered mx-auto" style="max-width: 800px;">
+                    <thead>
                         <tr>
-                            <td class="px-4">{{ $user->name }}</td>
-                            <td class="px-4">{{ $user->email }}</td>
-                            <td class="px-4">{{ $user->roles->pluck('name')->join(', ') }}</td>
+                            <th class="px-4">Name</th>
+                            <th class="px-4">Email</th>
+                            <th class="px-4">Role</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach ($users as $user)
+                            <tr>
+                                <td class="px-4">{{ $user->name }}</td>
+                                <td class="px-4">{{ $user->email }}</td>
+                                <td class="px-4">{{ $user->roles->pluck('name')->join(', ') }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="row justify-content-center mt-4">

@@ -34,20 +34,25 @@
                             <div class="accordion-body">
                                 @if ($semester->subjects->count() > 0)
                                     <div class="row">
-                                        @foreach ($semester->subjects as $subject)
-                                            <div class=" mb-4 ">
-                                                <div class="card shadow-sm ">
-                                                    <div class="card-header d-flex justify-content-around align-items-center"
-                                                        style="background-color: #feebd5;">
-                                                        <h5 class="mb-0">Subject: {{ $subject->Subject_name }}</h5>
-                                                        <h5 class="mb-0">lecturer: {{ $subject->Subject_lecturer }}</h5>
-                                                    </div>
-                                                    <div class="card-body">
-                                                       @include('shared.lectures-card')
+                                        <div class="accordion" id="subjectAccordion{{ $semester->id }}">
+                                            @foreach ($semester->subjects as $subject)
+                                                <div class="accordion-item border-0 mb-3">
+                                                    <h2 class="accordion-header" id="heading{{ $subject->id }}">
+                                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                                            data-bs-target="#collapse{{ $subject->id }}" aria-expanded="false"
+                                                            aria-controls="collapse{{ $subject->id }}">
+                                                            {{ $subject->Subject_name }} - {{ $subject->Subject_lecturer }}
+                                                        </button>
+                                                    </h2>
+                                                    <div id="collapse{{ $subject->id }}" class="accordion-collapse collapse"
+                                                        aria-labelledby="heading{{ $subject->id }}" data-bs-parent="#subjectAccordion{{ $semester->id }}">
+                                                        <div class="accordion-body">
+                                                            @include('shared.lectures-card')
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        @endforeach
+                                            @endforeach
+                                        </div>
                                     </div>
                                 @else
                                     <p class="text-muted">No subjects available for this semester.</p>
@@ -61,4 +66,6 @@
         </div>
 
     </div>
+
+
 @endsection

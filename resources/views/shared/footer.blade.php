@@ -1,4 +1,4 @@
-<footer class="shadow-sm mt-2 py-3 border-black border-top" style="background-color: #f3f3f3d8;">
+<footer class="shadow-sm mt-2 py-3 border-black border-top w-100" style="background-color: #f3f3f3d8;">
    <div class="container text-center">
       <div class="row justify-content-center">
          <div class="col-12 col-md-8">

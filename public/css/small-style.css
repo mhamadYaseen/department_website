@@ -119,3 +119,34 @@
        max-width: 100%;
    }
 }
+@media (max-width: 768px) {
+    table thead {
+        display: none;
+    }
+
+    table tbody tr {
+        display: block;
+        margin-bottom: 15px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    table tbody tr td {
+        display: block;
+        text-align: right;
+        font-size: 14px;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    table tbody tr td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        text-align: left;
+        font-weight: bold;
+    }
+
+    table tbody tr td:last-child {
+        text-align: center;
+    }
+}

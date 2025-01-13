@@ -10,24 +10,24 @@
 
 @foreach ($semesters as $semester)
     @if ($semester->subjects->count() > 0)
-        <div class="card shadow-sm my-3">
-            <div class="card-header bg-secondary py-1">Semester {{ $semester->semester_number }}</div>
-            <div class="card-body">
-                <!-- Ensure horizontal scroll for the table -->
-                <div class="table-responsive-sm"> 
-                    <table class="table table-hover table-bordered table-striped lecture-table">
-                        <thead class="table-dark">
-                            <tr class="text-center align-middle">
-                                <th>Lecture Title</th>
-                                <th>Subject</th>
-                                <th>Lecturer</th>
-                                <th class="d-none d-md-table-cell">Uploaded At</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($semester->subjects as $subject)
-                                @foreach ($subject->lectures as $lecture)
+        @foreach ($semester->subjects as $subject)
+            @foreach ($subject->lectures as $lecture)
+                <div class="card shadow-sm my-3">
+                    <div class="card-header bg-secondary py-1">Semester {{ $semester->semester_number }}</div>
+                    <div class="card-body">
+                        <!-- Ensure horizontal scroll for the table -->
+                        <div class="table-responsive-sm">
+                            <table class="table table-hover table-bordered table-striped lecture-table">
+                                <thead class="table-dark">
+                                    <tr class="text-center align-middle">
+                                        <th>Lecture Title</th>
+                                        <th>Subject</th>
+                                        <th>Lecturer</th>
+                                        <th class="d-none d-md-table-cell">Uploaded At</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                                     <tr>
                                         <td class="table-primary text-center align-middle text-truncate">
                                             {{ $lecture->title }}
@@ -43,8 +43,7 @@
                                         </td>
                                         <td class="d-flex flex-wrap justify-content-center gap-1 align-middle">
                                             @if ($lecture->file_path)
-                                                <a href="{{ asset('storage/' . $lecture->file_path) }}"
-                                                    target="_blank"
+                                                <a href="{{ asset('storage/' . $lecture->file_path) }}" target="_blank"
                                                     class="btn btn-primary action-btn">
                                                     <i class="fas fa-file-pdf me-1"></i> View
                                                 </a>
@@ -65,20 +64,19 @@
                                                     onsubmit="return confirm('Are you sure you want to delete this lecture?');">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit"
-                                                        class="btn btn-danger action-btn">
+                                                    <button type="submit" class="btn btn-danger action-btn">
                                                         <i class="fas fa-trash me-1"></i> Delete
                                                     </button>
                                                 </form>
                                             @endcan
                                         </td>
                                     </tr>
-                                @endforeach
-                            @endforeach
-                        </tbody>
-                    </table>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+            @endforeach
+        @endforeach
     @endif
 @endforeach

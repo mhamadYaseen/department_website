@@ -35,6 +35,16 @@
                         </span>
                      @enderror
                   </div>
+                  <div class="form-group mb-3">
+                     <label for="description">description</label>
+                     <input type="text" class="form-control @error('description') is-invalid @enderror" 
+                        id="description" name="description" value="{{ old('description', $lecture->description) }}" >
+                     @error('description')
+                        <span class="invalid-feedback" role="alert">
+                           <strong>{{ $message }}</strong>
+                        </span>
+                     @enderror
+                  </div>
 
                   <div class="form-group mb-3">
                      <label for="subject_id">Subject</label>

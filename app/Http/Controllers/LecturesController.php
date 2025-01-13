@@ -43,9 +43,12 @@ class LecturesController extends Controller
                 'description' => 'nullable|string|',
                 'pdf_file' => 'required|mimes:pdf|max:2048',
             ]);
-
+            if (!$request->description) {
+                $request->merge(['description' => 'there is no description']);
+            }
             // Store the uploaded PDF in the 'public/files' directory and get the path
             $filePath = $request->file('pdf_file')->store('files', 'public');
+            
 
             // Store the lecture in the database with the subject_id
             $lecture = Lecture::create([
@@ -54,6 +57,7 @@ class LecturesController extends Controller
                 'description' => $request->description,
                 'file_path' => $filePath
             ]);
+
             activity()
                 ->causedBy(Auth::user())
                 ->performedOn($lecture)
@@ -84,8 +88,12 @@ class LecturesController extends Controller
         $request->validate([
             'title' => 'required',
             'subject_id' => 'required|exists:subjects,id', // Validate subject_id
+            'description' => 'nullable|string',
             'pdf_file' => 'nullable|mimes:pdf|max:2048', // Allow pdf to be nullable (optional update)
         ]);
+        if (!$request->description) {
+            $request->merge(['description' => 'there is no description']);
+        }
 
         // Check if a new file is uploaded
         if ($request->hasFile('pdf_file')) {
@@ -105,6 +113,7 @@ class LecturesController extends Controller
         $lecture->update([
             'title' => $request->title,
             'subject_id' => $request->subject_id, // Use subject_id field
+            'description' => $request->description,
             'file_path' => $filePath // Save the file path
         ]);
 
