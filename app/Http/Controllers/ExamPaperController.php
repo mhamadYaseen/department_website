@@ -45,11 +45,16 @@ class ExamPaperController extends Controller
             'title' => 'required',
             'subject_id' => 'required|exists:subjects,id',
             'description' => 'nullable|string',
-            'pdf_file' => 'required|mimes:pdf|max:2048',
+            'pdf_file' => 'required|mimes:pdf|max:10240',
         ]);
+        if (!$request->description) {
+            $request->merge(['description' => 'there is no description']);
+        }
 
-        $file_path = $request->file('pdf_file')->store('exam-papers', 'public');
+        // Store the file in the R2 disk
+        $file_path = $request->file('pdf_file')->store('files', 'r2');
 
+        // Save the exam paper in the database
         ExamPaper::create([
             'title' => $request->title,
             'subject_id' => $request->subject_id,
@@ -60,12 +65,10 @@ class ExamPaperController extends Controller
         return redirect()->route('exam-papers.index')->with('success', 'Exam paper uploaded successfully!');
     }
 
-
-
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ExamPaper $examPaper, Subject $subjects)
+    public function edit(ExamPaper $examPaper)
     {
         $subjects = Subject::all();
 
@@ -73,7 +76,7 @@ class ExamPaperController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified exam paper in storage.
      */
     public function update(Request $request, ExamPaper $examPaper)
     {
@@ -81,15 +84,23 @@ class ExamPaperController extends Controller
             'title' => 'required',
             'subject_id' => 'required|exists:subjects,id',
             'description' => 'nullable|string',
-            'pdf_file' => 'mimes:pdf|max:2048',
+            'pdf_file' => 'nullable|mimes:pdf|max:10240',
         ]);
 
         if ($request->hasFile('pdf_file')) {
-            $file_path = $request->file('pdf_file')->store('files', 'public');
+            // Delete the old file from R2 if it exists
+            if ($examPaper->file_path) {
+                Storage::disk('r2')->delete($examPaper->file_path);
+            }
+
+            // Store the new file in R2
+            $file_path = $request->file('pdf_file')->store('files', 'r2');
         } else {
+            // Keep the existing file path if no new file is uploaded
             $file_path = $examPaper->file_path;
         }
 
+        // Update the exam paper in the database
         $examPaper->update([
             'title' => $request->title,
             'subject_id' => $request->subject_id,
@@ -101,27 +112,38 @@ class ExamPaperController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified exam paper from storage.
      */
     public function destroy(ExamPaper $examPaper)
     {
+        // Delete the file from R2 if it exists
         if ($examPaper->file_path) {
-            Storage::disk('public')->delete($examPaper->file_path);
+            Storage::disk('r2')->delete($examPaper->file_path);
         }
 
+        // Delete the exam paper record from the database
         $examPaper->delete();
+
         return redirect()->route('exam-papers.index')->with('success', 'Exam paper deleted successfully!');
     }
 
-    public function download($id)
+    /**
+     * Download the specified exam paper.
+     */
+    public function download(ExamPaper $paper)
     {
-        $examPaper = ExamPaper::findOrFail($id); // Find the exam paper or throw a 404 error
+        if (Storage::disk('r2')->exists($paper->file_path)) {
+            // Fetch the file content from R2
+            $fileContent = Storage::disk('r2')->get($paper->file_path);
 
-        if (Storage::disk('public')->exists($examPaper->file_path)) {
-            
-            return response()->download(storage_path('app/public/' . $examPaper->file_path), $examPaper->title . '.pdf');
+            // Create the download response with appropriate headers
+            return response($fileContent, 200, [
+                'Content-Type' => Storage::disk('r2')->mimeType($paper->file_path),
+                'Content-Disposition' => 'attachment; filename="' . basename($paper->file_path) . '"',
+            ]);
         }
 
-        return redirect()->back()->with('error', 'File not found!');
-    }
+        // Redirect back if the file does not exist
+        return redirect()->back()->with('error', 'File not found.');
+    } 
 }

@@ -18,7 +18,7 @@ class LecturesController extends Controller
         $this->middleware('permission:edit files')->only(['edit', 'update']);
         $this->middleware('permission:delete files')->only('destroy');
     }
-    
+
     public function index()
     {
         $lectures = Lecture::with(['subject', 'semester'])->get();
@@ -41,14 +41,14 @@ class LecturesController extends Controller
                 'title' => 'required',
                 'subject_id' => 'required|exists:subjects,id', // Validate that subject_id exists in the subjects table
                 'description' => 'nullable|string|',
-                'pdf_file' => 'required|mimes:pdf|max:2048',
+                'pdf_file' => 'required|mimes:pdf|max:10240',
             ]);
             if (!$request->description) {
                 $request->merge(['description' => 'there is no description']);
             }
             // Store the uploaded PDF in the 'public/files' directory and get the path
             $filePath = $request->file('pdf_file')->store('files', 'public');
-            
+
 
             // Store the lecture in the database with the subject_id
             $lecture = Lecture::create([
@@ -89,21 +89,23 @@ class LecturesController extends Controller
             'title' => 'required',
             'subject_id' => 'required|exists:subjects,id', // Validate subject_id
             'description' => 'nullable|string',
-            'pdf_file' => 'nullable|mimes:pdf|max:2048', // Allow pdf to be nullable (optional update)
+            'pdf_file' => 'nullable|mimes:pdf|max:10240', // 10MB limit (10240KB)
         ]);
+
+        // Set a default description if none is provided
         if (!$request->description) {
             $request->merge(['description' => 'there is no description']);
         }
 
-        // Check if a new file is uploaded
+        // Handle file update if a new file is uploaded
         if ($request->hasFile('pdf_file')) {
-            // Delete the old file if it exists
+            // Delete the old file from R2 if it exists
             if ($lecture->file_path) {
-                Storage::disk('public')->delete($lecture->file_path);
+                Storage::disk('r2')->delete($lecture->file_path);
             }
 
-            // Store the new uploaded PDF_file and get the file path
-            $filePath = $request->file('pdf_file')->store('files', 'public');
+            // Store the new file in the R2 disk and get the file path
+            $filePath = $request->file('pdf_file')->store('files', 'r2');
         } else {
             // Keep the old file path if no new file is uploaded
             $filePath = $lecture->file_path;
@@ -112,38 +114,48 @@ class LecturesController extends Controller
         // Update the lecture in the database
         $lecture->update([
             'title' => $request->title,
-            'subject_id' => $request->subject_id, // Use subject_id field
+            'subject_id' => $request->subject_id,
             'description' => $request->description,
-            'file_path' => $filePath // Save the file path
+            'file_path' => $filePath, // Save the file path (new or existing)
         ]);
 
-        return redirect()->route('lectures.index')->with('success', 'lecture updated successfully!');
+        return redirect()->route('lectures.index')->with('success', 'Lecture updated successfully!');
     }
 
-    public function destroy(Lecture $lecture)
+
+    public function destroy($id)
     {
-        // Delete the file from storage
-        if ($lecture->file_path) {
-            Storage::disk('public')->delete($lecture->file_path);
+        $lecture = Lecture::findOrFail($id); // Fetch the lecture from the database
+
+        // Check if the file exists in the R2 storage
+        if (Storage::disk('r2')->exists($lecture->file_path)) {
+            // Delete the file from R2
+            Storage::disk('r2')->delete($lecture->file_path);
         }
 
-        // Delete the lecture from the database
+        // Delete the lecture record from the database
         $lecture->delete();
 
-        return redirect()->route('lectures.index')->with('success', 'lecture deleted successfully!');
+        // Redirect with success message
+        return redirect()->back()->with('success', 'File and lecture record deleted successfully!');
     }
 
-    public function download(Lecture $lecture)
-    {
-        // Get the file path from the lecture
-        $filePath = storage_path('app/public/' . $lecture->file_path);
 
-        // Check if the file exists
-        if (file_exists($filePath)) {
-            // Return the file as a download response
-            return response()->download($filePath);
+    public function forceDownload(Lecture $lecture)
+    {
+        // Check if the file exists in Cloudflare R2
+        if (Storage::disk('r2')->exists($lecture->file_path)) {
+            // Fetch the file content from R2
+            $fileContent = Storage::disk('r2')->get($lecture->file_path);
+
+            // Create the download response with appropriate headers
+            return response($fileContent, 200, [
+                'Content-Type' => Storage::disk('r2')->mimeType($lecture->file_path),
+                'Content-Disposition' => 'attachment; filename="' . basename($lecture->file_path) . '"',
+            ]);
         }
 
-        return redirect()->route('lectures.index')->with('error', 'File not found!');
+        // Redirect back if the file does not exist
+        return redirect()->back()->with('error', 'File not found.');
     }
 }

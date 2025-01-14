@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="d-flex flex-column flex-lg-row gap-2 justify-content-start justify-content-lg-end align-items-center">
-                <a href="{{ asset('storage/' . $paper->file_path) }}"
+                <a href="{{ Storage::disk('r2')->url($paper->file_path);}}"
                     target="_blank"
                     class="btn btn-sm btn-primary d-flex align-items-center justify-content-center w-100 w-lg-auto">
                     <i class="fas fa-file-pdf me-1"></i> View

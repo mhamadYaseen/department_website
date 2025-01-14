@@ -28,22 +28,21 @@
             <div
                 class="row g-2 align-items-center justify-content-end w-100">
                 <div class="col-12 col-md-auto  ">
-                    <a href="{{ asset('storage/' . $lecture->file_path) }}"
+                    <a href="{{Storage::disk('r2')->url($lecture->file_path); }}"
                         target="_blank"
                         class="btn btn-sm text-center justify-content-center btn-primary d-flex align-items-center ">
                         <i class="fas fa-file-pdf me-1"></i>
                         View
                     </a>
                 </div>
-                <div class="col-12 col-md-auto  ">
-                    <a href="{{ asset('storage/' . $lecture->file_path) }}"
-                        download
-                        class="btn btn-sm text-center justify-content-center btn-info d-flex align-items-center w-100">
+                <div class="col-12 col-md-auto">
+                    <a href="{{ route('lectures.forceDownload', $lecture->id) }}"
+                       class="btn btn-sm text-center justify-content-center btn-info d-flex align-items-center w-100">
                         <i class="fas fa-download me-1"></i>
                         Download
                     </a>
                 </div>
-
+                             
                 @can('edit files', $lecture)
                     <div class="col-12 col-md-auto  ">
                         <a href="{{ route('lectures.edit', $lecture->id) }}"
