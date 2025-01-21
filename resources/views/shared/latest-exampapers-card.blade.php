@@ -12,7 +12,7 @@
 @foreach ($semesters as $semester)
     @if ($semester->subjects->count() > 0)
         @foreach ($semester->subjects as $subject)
-            @foreach ($subject->examPapers as $examPaper)
+            @foreach ($latestExamPapers as $examPaper)
                 <div class="card shadow-sm my-3">
                     <div class="card-header bg-secondary py-1">Semester {{ $semester->semester_number }}</div>
                     <div class="card-body">
@@ -44,11 +44,11 @@
                                             </td>
                                             <td class="d-flex flex-wrap justify-content-center gap-1 align-middle">
                                                 @if ($examPaper->file_path)
-                                                    <a href="{{ asset('storage/' . $examPaper->file_path) }}" target="_blank"
+                                                    <a href="{{ Storage::disk('r2')->url($examPaper->file_path);}}" target="_blank"
                                                     class="btn btn-primary btn-sm d-flex align-items-center action-btn">
                                                         <i class="fas fa-file-pdf me-1"></i> View
                                                     </a>
-                                                    <a href="{{ asset('storage/' . $examPaper->file_path) }}" download
+                                                    <a href="{{ route('exam-papers.download', $examPaper->id)}}"
                                                     class="btn btn-info btn-sm d-flex align-items-center action-btn">
                                                         <i class="fas fa-download me-1"></i> Download
                                                     </a>

@@ -26,16 +26,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $latestLectures = Lecture::with(['subject', 'semester'])
-                                 ->latest()
+        $latestLectures = Lecture::orderBy('created_at', 'desc')
                                  ->take(10)
+                                 ->with(['subject', 'semester'])
                                  ->get();
-        $latestExamPapers = ExamPaper::with(['subject'])
-                                     ->latest()
+        $latestExamPapers = ExamPaper::orderBy('created_at', 'desc')
                                      ->take(10)
+                                     ->with(['subject'])
                                      ->get();
         $semesters = Semester::all();
         return view('home', compact('latestLectures', 'latestExamPapers','semesters'));
-    
     }
 }

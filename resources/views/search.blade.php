@@ -24,7 +24,7 @@
                                        {{ $lecture->title }}
                                    </div>
                                    <div class="card-body text-center">
-                                       <a href="{{ asset('storage/' . $lecture->file_path) }}" target="_blank"
+                                       <a href="{{ Storage::disk('r2')->url($lecture->file_path); }}" target="_blank"
                                           class="btn btn-outline-primary w-75">
                                            <i class="fas fa-file-pdf me-1"></i> View PDF
                                        </a>
@@ -80,7 +80,7 @@
                                        {{ $exam_paper->title }}
                                    </div>
                                    <div class="card-body text-center">
-                                       <a href="{{ asset('storage/' . $exam_paper->file_path) }}" target="_blank"
+                                       <a href="{{ Storage::disk('r2')->url($exam_paper->file_path); }}" target="_blank"
                                           class="btn btn-outline-danger w-75">
                                            <i class="fas fa-file-pdf me-1"></i> View PDF
                                        </a>

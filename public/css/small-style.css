@@ -118,35 +118,45 @@
    .search {
        max-width: 100%;
    }
+}/* Enable horizontal scrolling */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling for touch devices */
 }
+
+/* Ensure the header stays in one row */
+.table thead th {
+    white-space: nowrap; /* Prevent header text from wrapping */
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px; /* Slightly smaller font for headers */
+}
+
+/* Prevent text wrapping in table cells */
+.table td, .table th {
+    white-space: nowrap;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 12px; /* Reduce font size for better fit */
+}
+
+/* Reduce padding for small devices */
 @media (max-width: 768px) {
-    table thead {
-        display: none;
+    .table td, .table th {
+        padding: 6px 8px; /* Reduce padding */
     }
 
-    table tbody tr {
-        display: block;
-        margin-bottom: 15px;
-        border-bottom: 1px solid #ddd;
+    .btn {
+        font-size: 10px; /* Smaller button text */
+        padding: 4px 6px; /* Compact button padding */
+        border-radius: 4px; /* Smaller border radius */
     }
 
-    table tbody tr td {
-        display: block;
-        text-align: right;
-        font-size: 14px;
-        position: relative;
-        padding-left: 50%;
+    .table {
+        font-size: 11px; /* Reduce table font size */
     }
 
-    table tbody tr td::before {
-        content: attr(data-label);
-        position: absolute;
-        left: 10px;
-        text-align: left;
-        font-weight: bold;
-    }
-
-    table tbody tr td:last-child {
-        text-align: center;
+    .text-truncate {
+        max-width: 100px; /* Reduce truncation width */
     }
 }

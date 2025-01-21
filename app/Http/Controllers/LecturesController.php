@@ -47,7 +47,7 @@ class LecturesController extends Controller
                 $request->merge(['description' => 'there is no description']);
             }
             // Store the uploaded PDF in the 'public/files' directory and get the path
-            $filePath = $request->file('pdf_file')->store('files', 'public');
+            $filePath = $request->file('pdf_file')->store('files', 'r2');
 
 
             // Store the lecture in the database with the subject_id
