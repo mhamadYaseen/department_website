@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class AccountController extends Controller
 {
@@ -14,29 +16,41 @@ class AccountController extends Controller
     }
     public function update(Request $request)
     {
-        // Get the currently authenticated user
-        $user = Auth::user();
+        try {
+            // Get the currently authenticated user
+            $user = Auth::user();
 
-        // Validate the form data
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'password' => 'nullable|string|min:8|confirmed',
-        ]);
+            // Validate the form data
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+                'password' => 'nullable|string|min:8|confirmed',
+            ]);
 
-        // Update the user
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->save();
+            // Update the user
+            $user->name = $validated['name'];
+            $user->email = $validated['email'];
 
-        // Redirect to the account page
-        session()->flash('success', 'Your profile has been updated.');
-        return redirect('/');
+            // Only update password if provided
+            if (!empty($validated['password'])) {
+                $user->password = Hash::make($validated['password']);
+            }
+
+            if ($user->save()) {
+                return redirect()->back()->with('success', 'Your profile has been updated.');
+            }
+
+            return redirect()->back()->with('error', 'Failed to update profile.');
+        } catch (\Exception $e) {
+            Log::error('Profile update failed: ' . $e->getMessage());
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'An error occurred while updating your profile.');
+        }
     }
-
     public function destroy(Request $request)
     {
-       
+
         // Get the currently authenticated user
         $user = Auth::user();
 

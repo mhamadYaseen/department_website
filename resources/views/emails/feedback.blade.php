@@ -5,10 +5,10 @@
 </head>
 <body>
     <div>
-        <h2>Feedback from {{ $feedbackData['name'] }}</h2>
-        <p><strong>Email:</strong> {{ $feedbackData['email'] }}</p>
+        <h2>Feedback from {{ $name }}</h2>
+        <p><strong>Email:</strong> {{ $email }}</p>
         <p><strong>Message:</strong></p>
-        <p>{{ $feedbackData['message'] }}</p>
+        <p>{{ $messageContent }}</p>
     </div>
 </body>
 </html>

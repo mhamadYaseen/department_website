@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'Home')
 
 @section('content')
 <div class="text-center position-relative px-0 mb-1 " style="margin-top:-60px; z-index:-1;">
